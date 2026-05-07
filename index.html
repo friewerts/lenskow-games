@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="description" content="Tier Memory – Ein süßes Memory-Spiel für Kinder zwischen 3 und 5 Jahren. Finde die Tierpaare!" />
+    <meta name="description" content="Lenskow Lernspiele – Zwei liebevolle Spiele für Kinder, die Gedächtnis, Zahlen und Mengen fördern." />
     <meta name="theme-color" content="#FF9EC6" />
     <meta name="theme-color" content="#FF9EC6" media="(prefers-color-scheme: dark)" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Tier Memory" />
+    <meta name="apple-mobile-web-app-title" content="Lenskow Lernspiele" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
-    <title>Tier Memory – Spiel für Kinder</title>
+    <title>Lenskow Lernspiele</title>
   </head>
   <body>
     <div id="app">
@@ -21,26 +21,64 @@
       <div id="menu-screen" class="screen active">
         <div class="menu-container">
           <div class="logo-area">
-            <div class="logo-icon">🐾</div>
-            <h1>Tier Memory</h1>
-            <p class="subtitle">Finde die Tierpaare!</p>
+            <div class="logo-icon">🎲</div>
+            <h1>Lenskow Lernspiele</h1>
+            <p class="subtitle">Gedächtnis und Mengen spielerisch entdecken</p>
           </div>
-          <div class="difficulty-selector">
-            <button id="btn-easy" class="difficulty-btn easy" data-pairs="3">
-              <span class="difficulty-emoji">🐣</span>
-              <span class="difficulty-label">Leicht</span>
-              <span class="difficulty-info">3 Paare</span>
-            </button>
-            <button id="btn-medium" class="difficulty-btn medium" data-pairs="6">
-              <span class="difficulty-emoji">🐥</span>
-              <span class="difficulty-label">Mittel</span>
-              <span class="difficulty-info">6 Paare</span>
-            </button>
-            <button id="btn-hard" class="difficulty-btn hard" data-pairs="8">
-              <span class="difficulty-emoji">🦁</span>
-              <span class="difficulty-label">Schwer</span>
-              <span class="difficulty-info">8 Paare</span>
-            </button>
+          <div class="menu-sections">
+            <section class="menu-section">
+              <div class="menu-section-header">
+                <span class="menu-section-icon">🐾</span>
+                <div>
+                  <h2>Tier Memory</h2>
+                  <p>Finde die passenden Tierpaare.</p>
+                </div>
+              </div>
+              <div class="difficulty-selector">
+                <button class="difficulty-btn easy" data-game="memory" data-value="3">
+                  <span class="difficulty-emoji">🐣</span>
+                  <span class="difficulty-label">Leicht</span>
+                  <span class="difficulty-info">3 Paare</span>
+                </button>
+                <button class="difficulty-btn medium" data-game="memory" data-value="6">
+                  <span class="difficulty-emoji">🐥</span>
+                  <span class="difficulty-label">Mittel</span>
+                  <span class="difficulty-info">6 Paare</span>
+                </button>
+                <button class="difficulty-btn hard" data-game="memory" data-value="8">
+                  <span class="difficulty-emoji">🦁</span>
+                  <span class="difficulty-label">Schwer</span>
+                  <span class="difficulty-info">8 Paare</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="menu-section menu-section-counting">
+              <div class="menu-section-header">
+                <span class="menu-section-icon">🔢</span>
+                <div>
+                  <h2>Zahlen & Mengen</h2>
+                  <p>Finde die Menge, die genau zur Zahl passt.</p>
+                </div>
+              </div>
+              <div class="difficulty-selector">
+                <button class="difficulty-btn easy" data-game="counting" data-value="3">
+                  <span class="difficulty-emoji">🍎</span>
+                  <span class="difficulty-label">Leicht</span>
+                  <span class="difficulty-info">Zahlen 1 bis 3</span>
+                </button>
+                <button class="difficulty-btn medium" data-game="counting" data-value="5">
+                  <span class="difficulty-emoji">🍐</span>
+                  <span class="difficulty-label">Mittel</span>
+                  <span class="difficulty-info">Zahlen 1 bis 5</span>
+                </button>
+                <button class="difficulty-btn hard" data-game="counting" data-value="8">
+                  <span class="difficulty-emoji">🍊</span>
+                  <span class="difficulty-label">Schwer</span>
+                  <span class="difficulty-info">Zahlen 1 bis 8</span>
+                </button>
+              </div>
+            </section>
           </div>
           <button id="btn-sound-toggle" class="sound-toggle" aria-label="Ton an/aus">
             🔊
@@ -54,17 +92,20 @@
           <button id="btn-back" class="header-btn" aria-label="Zurück zum Menü">
             ← Zurück
           </button>
-          <div class="game-stats">
+          <div class="game-stats-wrap">
+            <p id="game-instruction" class="game-instruction"></p>
+            <div class="game-stats">
             <div class="stat" id="stat-moves">
-              <span class="stat-icon">👆</span>
+              <span class="stat-icon" id="stat-primary-icon">👆</span>
               <span class="stat-value" id="moves-count">0</span>
             </div>
             <div class="stat" id="stat-pairs">
-              <span class="stat-icon">⭐</span>
+              <span class="stat-icon" id="stat-secondary-icon">⭐</span>
               <span class="stat-value" id="pairs-found">0</span>
               <span class="stat-separator">/</span>
               <span class="stat-value" id="pairs-total">0</span>
             </div>
+          </div>
           </div>
           <button id="btn-sound-game" class="header-btn sound-btn" aria-label="Ton an/aus">
             🔊

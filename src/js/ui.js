@@ -1,7 +1,9 @@
 import { createGame, flipCard, resetFlipped, calculateStars } from './game.js'
-import { playFlip, playMatch, playMismatch, playWin, playClick, resumeAudio, toggleMute, getMuted } from './audio.js'
+import { createCountingGame, selectQuantity, advanceCountingRound, calculateCountingStars } from './counting-game.js'
+import { playFlip, playMatch, playMismatch, playWin, playClick, resumeAudio, toggleMute, getMuted, speakNumber, cancelSpeech } from './audio.js'
 
 let currentGame = null
+let currentMode = null
 let currentDifficulty = null
 
 // DOM references
@@ -14,6 +16,18 @@ const pairsFound = document.getElementById('pairs-found')
 const pairsTotal = document.getElementById('pairs-total')
 const winStars = document.getElementById('win-stars')
 const winMessage = document.getElementById('win-message')
+const gameInstruction = document.getElementById('game-instruction')
+const statPrimaryIcon = document.getElementById('stat-primary-icon')
+const statSecondaryIcon = document.getElementById('stat-secondary-icon')
+
+const COUNTING_THEMES = [
+  { emoji: '🍎', label: 'Äpfel', accentClass: 'theme-apple' },
+  { emoji: '⭐', label: 'Sterne', accentClass: 'theme-star' },
+  { emoji: '🧸', label: 'Teddys', accentClass: 'theme-bear' },
+  { emoji: '🌼', label: 'Blüten', accentClass: 'theme-flower' },
+  { emoji: '🫐', label: 'Beeren', accentClass: 'theme-berry' },
+  { emoji: '🦋', label: 'Schmetterlinge', accentClass: 'theme-butterfly' },
+]
 
 /**
  * Switch between screens
@@ -33,24 +47,44 @@ function updateSoundButtons() {
 }
 
 /**
- * Start a new game with the given number of pairs
+ * Start a new game mode with the given difficulty
  */
-export function startGame(pairCount) {
+export function startGame(mode, difficulty) {
   resumeAudio()
   playClick()
-  currentDifficulty = pairCount
+  currentMode = mode
+  currentDifficulty = difficulty
+
+  if (mode === 'counting') {
+    startCountingGame(difficulty)
+    return
+  }
+
+  startMemoryGame(difficulty)
+}
+
+function setGameHeader(config) {
+  gameInstruction.textContent = config.instruction
+  statPrimaryIcon.textContent = config.primaryIcon
+  statSecondaryIcon.textContent = config.secondaryIcon
+}
+
+function startMemoryGame(pairCount) {
   currentGame = createGame(pairCount)
 
-  // Update stats
+  setGameHeader({
+    instruction: 'Finde alle Tierpaare.',
+    primaryIcon: '👆',
+    secondaryIcon: '⭐',
+  })
+
   movesCount.textContent = '0'
   pairsFound.textContent = '0'
   pairsTotal.textContent = String(pairCount)
 
-  // Clear board
   gameBoard.innerHTML = ''
   gameBoard.className = `game-board pairs-${pairCount}`
 
-  // Render cards with staggered entrance animation
   currentGame.cards.forEach((card, index) => {
     const cardEl = document.createElement('div')
     cardEl.className = 'memory-card entrance'
@@ -63,7 +97,6 @@ export function startGame(pairCount) {
     const inner = document.createElement('div')
     inner.className = 'card-inner'
 
-    // Card back
     const back = document.createElement('div')
     back.className = 'card-face card-back'
     const pattern = document.createElement('span')
@@ -71,7 +104,6 @@ export function startGame(pairCount) {
     pattern.textContent = '⭐'
     back.appendChild(pattern)
 
-    // Card front
     const front = document.createElement('div')
     front.className = 'card-face card-front'
 
@@ -95,10 +127,8 @@ export function startGame(pairCount) {
     inner.appendChild(front)
     cardEl.appendChild(inner)
 
-    // Click handler
     cardEl.addEventListener('click', () => handleCardClick(card.uid))
     cardEl.addEventListener('touchstart', (e) => {
-      // Prevent double-fire on mobile
     }, { passive: true })
 
     gameBoard.appendChild(cardEl)
@@ -107,11 +137,74 @@ export function startGame(pairCount) {
   showScreen(gameScreen)
 }
 
+function startCountingGame(maxNumber) {
+  currentGame = createCountingGame(maxNumber)
+
+  setGameHeader({
+    instruction: 'Welche Menge passt zur Zahl?',
+    primaryIcon: '✅',
+    secondaryIcon: '🔢',
+  })
+
+  renderCountingRound()
+  showScreen(gameScreen)
+}
+
+function renderCountingRound() {
+  if (!currentGame || currentMode !== 'counting') return
+
+  const theme = COUNTING_THEMES[(currentGame.currentRound - 1) % COUNTING_THEMES.length]
+
+  gameBoard.innerHTML = ''
+  gameBoard.className = 'game-board counting-board'
+  updateStats()
+
+  const prompt = document.createElement('section')
+  prompt.className = 'counting-prompt entrance'
+  prompt.innerHTML = `
+    <p class="counting-prompt-label">Suche die passende Menge</p>
+    <p class="counting-theme-label">${theme.emoji} ${theme.label}</p>
+    <div class="counting-number" aria-live="polite">${currentGame.promptNumber}</div>
+  `
+
+  const options = document.createElement('div')
+  options.className = 'counting-options'
+
+  currentGame.options.forEach((option, index) => {
+    const button = document.createElement('button')
+    button.className = `quantity-option entrance ${theme.accentClass}`
+    button.type = 'button'
+    button.dataset.value = String(option.value)
+    button.style.animationDelay = `${150 + index * 80}ms`
+    button.setAttribute('aria-label', `${option.value} ${theme.label}`)
+
+    const items = document.createElement('div')
+    items.className = 'quantity-items'
+
+    option.items.forEach(() => {
+      const item = document.createElement('span')
+      item.className = 'quantity-item'
+      item.textContent = theme.emoji
+      item.setAttribute('aria-hidden', 'true')
+      items.appendChild(item)
+    })
+
+    button.appendChild(items)
+    button.addEventListener('click', () => handleQuantityClick(option.value))
+    options.appendChild(button)
+  })
+
+  gameBoard.appendChild(prompt)
+  gameBoard.appendChild(options)
+
+  speakNumber(currentGame.promptNumber)
+}
+
 /**
  * Handle card click
  */
 function handleCardClick(cardUid) {
-  if (!currentGame) return
+  if (!currentGame || currentMode !== 'memory') return
 
   const result = flipCard(currentGame, cardUid)
 
@@ -160,6 +253,66 @@ function handleCardClick(cardUid) {
       }, 1200)
       break
   }
+}
+
+function handleQuantityClick(value) {
+  if (!currentGame || currentMode !== 'counting') return
+
+  const result = selectQuantity(currentGame, value)
+  if (result.action === 'blocked') return
+
+  revealQuantityResult(result)
+  updateStats()
+
+  if (result.action === 'finish-wrong') {
+    playMismatch()
+    setTimeout(() => {
+      showWinScreen()
+      playWin()
+    }, 1100)
+    return
+  }
+
+  if (result.action === 'wrong') {
+    playMismatch()
+    setTimeout(() => {
+      advanceCountingRound(currentGame)
+      renderCountingRound()
+    }, 1100)
+    return
+  }
+
+  playMatch()
+
+  if (result.action === 'win') {
+    setTimeout(() => {
+      showWinScreen()
+      playWin()
+    }, 900)
+    return
+  }
+
+  setTimeout(() => {
+    advanceCountingRound(currentGame)
+    renderCountingRound()
+  }, 900)
+}
+
+function revealQuantityResult(result) {
+  const options = document.querySelectorAll('.quantity-option')
+
+  options.forEach(option => {
+    const value = Number(option.dataset.value)
+    option.disabled = true
+
+    if (value === result.correctValue) {
+      option.classList.add('correct')
+    }
+
+    if (value === result.selectedValue && value !== result.correctValue) {
+      option.classList.add('wrong')
+    }
+  })
 }
 
 /**
@@ -212,15 +365,27 @@ function unflipCards(uids) {
  * Update move/pairs counters
  */
 function updateStats() {
+  if (!currentGame) return
+
+  if (currentMode === 'counting') {
+    movesCount.textContent = String(currentGame.correctAnswers)
+    pairsFound.textContent = String(currentGame.currentRound)
+    pairsTotal.textContent = String(currentGame.totalRounds)
+    return
+  }
+
   movesCount.textContent = String(currentGame.moves)
   pairsFound.textContent = String(currentGame.pairsFound)
+  pairsTotal.textContent = String(currentGame.pairCount)
 }
 
 /**
  * Show win screen with stars and confetti
  */
 function showWinScreen() {
-  const stars = calculateStars(currentGame.moves, currentGame.pairCount)
+  const stars = currentMode === 'counting'
+    ? calculateCountingStars(currentGame.mistakes, currentGame.totalRounds)
+    : calculateStars(currentGame.moves, currentGame.pairCount)
 
   // Render stars
   winStars.innerHTML = ''
@@ -232,12 +397,21 @@ function showWinScreen() {
   }
 
   // Win message
-  const messages = {
-    3: 'Wow, das war perfekt! 🎊',
-    2: 'Toll gemacht! 👏',
-    1: 'Super, du hast es geschafft! 🥳',
+  if (currentMode === 'counting') {
+    const countingMessages = {
+      3: 'Stark! Du hast Zahl und Menge sofort erkannt.',
+      2: 'Sehr gut! Die meisten Mengen haben gepasst.',
+      1: 'Gut gemacht! Mit etwas Ueben klappt es noch schneller.',
+    }
+    winMessage.textContent = countingMessages[stars] || countingMessages[1]
+  } else {
+    const memoryMessages = {
+      3: 'Wow, das war perfekt! 🎊',
+      2: 'Toll gemacht! 👏',
+      1: 'Super, du hast es geschafft! 🥳',
+    }
+    winMessage.textContent = memoryMessages[stars] || memoryMessages[1]
   }
-  winMessage.textContent = messages[stars] || messages[1]
 
   // Spawn confetti
   spawnConfetti()
@@ -279,7 +453,9 @@ function spawnConfetti() {
 export function goToMenu() {
   resumeAudio()
   playClick()
+  cancelSpeech()
   currentGame = null
+  currentMode = null
   showScreen(menuScreen)
 }
 
@@ -287,8 +463,8 @@ export function goToMenu() {
  * Replay with same difficulty
  */
 export function playAgain() {
-  if (currentDifficulty) {
-    startGame(currentDifficulty)
+  if (currentDifficulty && currentMode) {
+    startGame(currentMode, currentDifficulty)
   }
 }
 
@@ -306,20 +482,18 @@ export function handleSoundToggle() {
  * Initialize all event listeners
  */
 export function initUI() {
-  // Difficulty buttons
-  document.getElementById('btn-easy').addEventListener('click', () => startGame(3))
-  document.getElementById('btn-medium').addEventListener('click', () => startGame(6))
-  document.getElementById('btn-hard').addEventListener('click', () => startGame(8))
+  document.querySelectorAll('[data-game][data-value]').forEach(button => {
+    button.addEventListener('click', () => {
+      startGame(button.dataset.game, Number(button.dataset.value))
+    })
+  })
 
-  // Navigation buttons
   document.getElementById('btn-back').addEventListener('click', goToMenu)
   document.getElementById('btn-play-again').addEventListener('click', playAgain)
   document.getElementById('btn-menu').addEventListener('click', goToMenu)
 
-  // Sound toggles
   document.getElementById('btn-sound-toggle').addEventListener('click', handleSoundToggle)
   document.getElementById('btn-sound-game').addEventListener('click', handleSoundToggle)
 
-  // Initialize sound state
   updateSoundButtons()
 }

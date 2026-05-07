@@ -5,6 +5,18 @@
 
 let audioCtx = null
 let isMuted = false
+let speechTimeoutId = null
+
+const spokenNumbers = {
+  1: 'eins',
+  2: 'zwei',
+  3: 'drei',
+  4: 'vier',
+  5: 'fuenf',
+  6: 'sechs',
+  7: 'sieben',
+  8: 'acht',
+}
 
 function getContext() {
   if (!audioCtx) {
@@ -25,11 +37,45 @@ export function resumeAudio() {
 
 export function toggleMute() {
   isMuted = !isMuted
+  if (isMuted) {
+    stopSpeech()
+  }
   return isMuted
 }
 
 export function getMuted() {
   return isMuted
+}
+
+function stopSpeech() {
+  if (speechTimeoutId) {
+    window.clearTimeout(speechTimeoutId)
+    speechTimeoutId = null
+  }
+
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel()
+  }
+}
+
+export function speakNumber(value) {
+  if (isMuted || !('speechSynthesis' in window)) return
+
+  stopSpeech()
+
+  speechTimeoutId = window.setTimeout(() => {
+    const utterance = new SpeechSynthesisUtterance(spokenNumbers[value] || String(value))
+    utterance.lang = 'de-DE'
+    utterance.rate = 0.9
+    utterance.pitch = 1.05
+    utterance.volume = 0.9
+    window.speechSynthesis.speak(utterance)
+    speechTimeoutId = null
+  }, 160)
+}
+
+export function cancelSpeech() {
+  stopSpeech()
 }
 
 /**
