@@ -13,7 +13,8 @@
 --font:'Quicksand','Segoe UI',sans-serif;
 --r-sm:12px;--r-md:16px;--r-lg:24px;--r-round:50%;
 }
-html,body{height:100%;overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+html{height:100%;background:var(--bg-start);color-scheme:light}
+html,body{overflow:hidden;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
 body{font-family:var(--font);font-weight:500;background:linear-gradient(135deg,var(--bg-start),var(--bg-end));color:#5a4a6a;min-height:100dvh;position:relative}
 body::before{content:'';position:fixed;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,158,198,.15),transparent 70%);border-radius:50%;pointer-events:none;animation:float 8s ease-in-out infinite}
 body::after{content:'';position:fixed;bottom:-80px;left:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(200,168,233,.12),transparent 70%);border-radius:50%;pointer-events:none;animation:float 10s ease-in-out infinite reverse}
