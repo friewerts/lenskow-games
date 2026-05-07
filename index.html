@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="description" content="Tier Memory – Ein süßes Memory-Spiel für Kinder zwischen 3 und 5 Jahren. Finde die Tierpaare!" />
+    <meta name="theme-color" content="#FF9EC6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Tier Memory" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <title>Tier Memory – Spiel für Kinder</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Menu Screen -->
+      <div id="menu-screen" class="screen active">
+        <div class="menu-container">
+          <div class="logo-area">
+            <div class="logo-icon">🐾</div>
+            <h1>Tier Memory</h1>
+            <p class="subtitle">Finde die Tierpaare!</p>
+          </div>
+          <div class="difficulty-selector">
+            <button id="btn-easy" class="difficulty-btn easy" data-pairs="3">
+              <span class="difficulty-emoji">🐣</span>
+              <span class="difficulty-label">Leicht</span>
+              <span class="difficulty-info">3 Paare</span>
+            </button>
+            <button id="btn-medium" class="difficulty-btn medium" data-pairs="6">
+              <span class="difficulty-emoji">🐥</span>
+              <span class="difficulty-label">Mittel</span>
+              <span class="difficulty-info">6 Paare</span>
+            </button>
+            <button id="btn-hard" class="difficulty-btn hard" data-pairs="8">
+              <span class="difficulty-emoji">🦁</span>
+              <span class="difficulty-label">Schwer</span>
+              <span class="difficulty-info">8 Paare</span>
+            </button>
+          </div>
+          <button id="btn-sound-toggle" class="sound-toggle" aria-label="Ton an/aus">
+            🔊
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Screen -->
+      <div id="game-screen" class="screen">
+        <div class="game-header">
+          <button id="btn-back" class="header-btn" aria-label="Zurück zum Menü">
+            ← Zurück
+          </button>
+          <div class="game-stats">
+            <div class="stat" id="stat-moves">
+              <span class="stat-icon">👆</span>
+              <span class="stat-value" id="moves-count">0</span>
+            </div>
+            <div class="stat" id="stat-pairs">
+              <span class="stat-icon">⭐</span>
+              <span class="stat-value" id="pairs-found">0</span>
+              <span class="stat-separator">/</span>
+              <span class="stat-value" id="pairs-total">0</span>
+            </div>
+          </div>
+          <button id="btn-sound-game" class="header-btn sound-btn" aria-label="Ton an/aus">
+            🔊
+          </button>
+        </div>
+        <div id="game-board" class="game-board"></div>
+      </div>
+
+      <!-- Win Screen -->
+      <div id="win-screen" class="screen">
+        <div class="win-container">
+          <div class="win-confetti" id="confetti-container"></div>
+          <div class="win-content">
+            <div class="win-emoji">🎉</div>
+            <h2>Super gemacht!</h2>
+            <div class="win-stars" id="win-stars"></div>
+            <p class="win-message" id="win-message"></p>
+            <div class="win-buttons">
+              <button id="btn-play-again" class="win-btn play-again">
+                🔄 Nochmal spielen
+              </button>
+              <button id="btn-menu" class="win-btn back-menu">
+                🏠 Zum Menü
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
