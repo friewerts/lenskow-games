@@ -83,8 +83,8 @@ export function cancelSpeech() {
  */
 function playTone(frequency, duration, type = 'sine', volume = 0.3) {
   if (isMuted) return
-  try {
-    const ctx = getContext()
+
+  const startTone = (ctx) => {
     const osc = ctx.createOscillator()
     const gain = ctx.createGain()
 
@@ -99,6 +99,25 @@ function playTone(frequency, duration, type = 'sine', volume = 0.3) {
 
     osc.start(ctx.currentTime)
     osc.stop(ctx.currentTime + duration)
+  }
+
+  try {
+    const ctx = getContext()
+
+    if (ctx.state === 'suspended') {
+      ctx.resume()
+        .then(() => {
+          if (!isMuted) {
+            startTone(ctx)
+          }
+        })
+        .catch(() => {
+          // Silently ignore resume errors
+        })
+      return
+    }
+
+    startTone(ctx)
   } catch (e) {
     // Silently ignore audio errors
   }
