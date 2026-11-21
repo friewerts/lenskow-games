@@ -35,7 +35,7 @@ export const GAMES = [
     id: 'dots',
     area: 'zahlen',
     art: { dots: true },
-    info: 'Punkte in der richtigen Reihenfolge verbinden, bis ein Bild entsteht. Übt die Zahlenreihe (bis 6, 10 bzw. 16) und die Feinmotorik.',
+    info: 'Punkte in der richtigen Reihenfolge verbinden, bis ein Bild entsteht. Übt die Zahlenreihe (bis 7, 10 bzw. 17) und die Feinmotorik.',
     load: () => import('./dots.js'),
   },
   {
