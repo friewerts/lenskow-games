@@ -5,65 +5,39 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/*.png'],
+      injectRegister: false,
+      includeAssets: ['icons/*.png', 'icons/*.svg'],
       manifest: {
-        name: 'Tier Memory – Spiel für Kinder',
-        short_name: 'Tier Memory',
-        description: 'Ein süßes Memory-Spiel mit niedlichen Tieren für Kinder zwischen 3 und 5 Jahren.',
-        theme_color: '#FF9EC6',
-        background_color: '#FFF0F5',
+        name: 'Lenskow Lernspiele',
+        short_name: 'Lernspiele',
+        description: 'Liebevolle Lernspiele für Kinder ab 5: Zahlen, Laute, Reime, Muster, Gedächtnis und Malen – mit Sprachansagen und offline spielbar.',
+        theme_color: '#8fd3ff',
+        background_color: '#c7ecff',
         display: 'standalone',
-        orientation: 'portrait',
-        start_url: '/',
-        scope: '/',
+        orientation: 'any',
+        start_url: '.',
+        scope: '.',
         lang: 'de',
         categories: ['games', 'kids', 'education'],
         icons: [
-          {
-            src: '/icons/icon-192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: '/icons/icon-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-          {
-            src: '/icons/icon-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable',
-          },
+          { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'icons/icon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,svg,ico,woff2}'],
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-stylesheets',
-            },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
-              },
-            },
-          },
-        ],
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2,mp3,webmanifest}'],
+        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+        navigateFallback: 'index.html',
       },
     }),
   ],
   build: {
     outDir: 'dist',
     assetsInlineLimit: 0,
+    target: 'es2020',
+  },
+  server: {
+    host: true,
   },
 })

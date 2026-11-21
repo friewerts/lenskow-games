@@ -1,0 +1,70 @@
+.melody {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.pads {
+  --pad: min(42cqw, 40cqh, 260px);
+  display: grid;
+  grid-template-columns: repeat(2, var(--pad));
+  gap: 4cqmin;
+}
+@container (min-aspect-ratio: 3/2) {
+  .pads {
+    --pad: min(21cqw, 62cqh, 260px);
+    grid-template-columns: repeat(4, var(--pad));
+  }
+}
+.pad {
+  --c: #ff8fb1;
+  --c-dark: #e2648c;
+  --c-light: #ffd3e1;
+  width: var(--pad);
+  height: var(--pad);
+  border-radius: 34%;
+  background: radial-gradient(circle at 50% 35%, var(--c-light), var(--c) 70%);
+  box-shadow: 0 10px 0 var(--c-dark), 0 18px 30px rgba(59, 51, 85, 0.18);
+  display: grid;
+  place-items: center;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.15s;
+  touch-action: none;
+  animation: pop-in 0.45s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+.pad img {
+  width: 62%;
+  height: 62%;
+  transition: transform 0.15s;
+  filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.15));
+}
+.pad-green {
+  --c: #5fd38d;
+  --c-dark: #2ea765;
+  --c-light: #c8f5d9;
+}
+.pad-pink {
+  --c: #ff8fb1;
+  --c-dark: #e2648c;
+  --c-light: #ffd9e5;
+}
+.pad-yellow {
+  --c: #ffcf4d;
+  --c-dark: #e0a400;
+  --c-light: #fff1c2;
+}
+.pad-blue {
+  --c: #5ab8ff;
+  --c-dark: #2f8ed9;
+  --c-light: #d2ebff;
+}
+.pad.lit {
+  transform: translateY(6px) scale(1.04);
+  box-shadow: 0 4px 0 var(--c-dark), 0 0 0 10px rgba(255, 255, 255, 0.8), 0 0 50px 14px var(--c);
+  filter: brightness(1.12) saturate(1.2);
+}
+.pad.lit img {
+  transform: scale(1.18) rotate(-6deg);
+}
+.pads.listening .pad:not(.lit) {
+  filter: saturate(0.55) opacity(0.8);
+}

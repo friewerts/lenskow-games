@@ -1,0 +1,133 @@
+.count {
+  width: 100%;
+  height: 100%;
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  justify-items: center;
+  gap: 3cqmin;
+}
+@container (max-aspect-ratio: 1/1) {
+  .count {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+  .count-answers {
+    flex-direction: row !important;
+  }
+}
+
+.count-field {
+  --size: min(15cqmin, 110px);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: var(--r-xl);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+  display: grid;
+  place-items: center;
+}
+.count-field.kind-scatter {
+  background: linear-gradient(180deg, #e9f9e3, #d6f1cc);
+}
+.count-item {
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+.count-item img {
+  width: 88%;
+  height: 88%;
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.15));
+}
+.count-item.scattered {
+  position: absolute;
+  margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  transform: rotate(var(--r));
+  animation: pop-in 0.4s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+.count-item.counted {
+  background: rgba(255, 159, 28, 0.18);
+}
+.count-item.counted::after {
+  content: attr(data-n);
+  position: absolute;
+  top: -4%;
+  right: -4%;
+  min-width: 38%;
+  height: 38%;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--zahlen);
+  color: #fff;
+  font-weight: 700;
+  font-size: calc(var(--size) * 0.26);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 0 var(--zahlen-dark);
+  transform: rotate(calc(var(--r, 0deg) * -1));
+}
+
+/* Würfel */
+.die {
+  position: relative;
+  width: min(62cqmin, 78%);
+  aspect-ratio: 1;
+  border-radius: 18%;
+  background: linear-gradient(145deg, #fff, #f1ecff);
+  box-shadow: 0 10px 0 #d9cff7, 0 20px 40px rgba(59, 51, 85, 0.18);
+  animation: die-roll 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+@keyframes die-roll {
+  from {
+    transform: rotate(-120deg) scale(0.3);
+    opacity: 0;
+  }
+}
+.pip {
+  position: absolute;
+  width: 19%;
+  height: 19%;
+  margin: -9.5% 0 0 -9.5%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #6f5cc7, #3b2f88);
+}
+.pip.counted {
+  background: radial-gradient(circle at 35% 30%, #ffc15e, #ff9f1c);
+}
+.pip.counted::after {
+  font-size: calc(min(62cqmin, 400px) * 0.06);
+  top: -18%;
+  right: -18%;
+}
+
+/* Zehnerfeld */
+.ten-frame {
+  display: grid;
+  grid-template-columns: repeat(5, var(--size));
+  grid-auto-rows: var(--size);
+  gap: calc(var(--size) * 0.12);
+  padding: calc(var(--size) * 0.2);
+  border-radius: 24px;
+  background: #fff7e8;
+  border: 4px solid #ffd79a;
+}
+.frame-cell {
+  border-radius: 16px;
+  background: rgba(255, 159, 28, 0.08);
+  display: grid;
+  place-items: center;
+}
+
+.count-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 3cqmin;
+}

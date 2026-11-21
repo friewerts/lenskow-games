@@ -1,15 +1,20 @@
 {
   "name": "lenskow-games",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test tests/data.test.mjs",
+    "emoji": "node scripts/build-emoji.mjs",
+    "voice:lines": "node scripts/voice-lines.mjs"
   },
   "devDependencies": {
+    "@iconify-json/noto": "^1.2.10",
     "vite": "^8.0.10",
     "vite-plugin-pwa": "^1.3.0"
-  }
+  },
+  "description": "Lenskow Lernspiele – 12 Lernspiele für Kinder ab 5 (Zahlen, Laute, Reime, Muster, Gedächtnis, Malen) als installierbare Web-App."
 }
