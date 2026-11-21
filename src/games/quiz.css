@@ -14,7 +14,7 @@
     grid-template-columns: auto 1fr;
   }
   .quiz-target {
-    width: min(42cqh, 34cqw) !important;
+    width: min(56cqh, 28cqw) !important;
   }
 }
 
@@ -130,6 +130,9 @@
   }
   .quiz-options[data-count='3'] .quiz-choice {
     width: min(19cqw, 40cqh, 210px);
+  }
+  .quiz-options[data-count='2'] .quiz-choice {
+    width: min(26cqw, 56cqh, 240px);
   }
 }
 .quiz-choice.tried {

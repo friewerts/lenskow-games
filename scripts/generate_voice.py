@@ -47,10 +47,17 @@ REPLACE = [
 
 def spoken(text: str) -> str:
     if text in PRONUNCIATION:
-        return PRONUNCIATION[text]
+        text = PRONUNCIATION[text]
     for a, b in REPLACE:
         text = text.replace(a, b)
+    # Einzelne Wörter mit Punkt sprechen: ruhigere, deutlichere Betonung
+    if " " not in text.strip() and text.strip()[-1:] not in ".!?":
+        text = text.strip() + "."
     return text
+
+
+def is_single_word(text: str) -> bool:
+    return " " not in text.strip()
 
 
 def trim(audio: np.ndarray, rate: int, threshold=0.012, pad_ms=60) -> np.ndarray:
@@ -101,13 +108,15 @@ def main():
     ap.add_argument("--manifest", default=str(ROOT / "src" / "data" / "voice-manifest.json"))
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--only", nargs="*", help="nur diese Texte neu erzeugen")
-    ap.add_argument("--length-scale", type=float, default=1.12)
+    # Etwas langsamer als normal – für Kinder deutlich besser verständlich
+    ap.add_argument("--length-scale", type=float, default=1.35)
     args = ap.parse_args()
 
     from piper import PiperVoice, SynthesisConfig
 
     voice = PiperVoice.load(args.model)
-    cfg = SynthesisConfig(length_scale=args.length_scale, noise_scale=0.6, noise_w_scale=0.75)
+    cfg_sentence = SynthesisConfig(length_scale=args.length_scale, noise_scale=0.4, noise_w_scale=0.6)
+    cfg_word = SynthesisConfig(length_scale=args.length_scale + 0.05, noise_scale=0.4, noise_w_scale=0.6)
 
     lines = json.loads(Path(args.lines).read_text())
     out = Path(args.out)
@@ -120,6 +129,7 @@ def main():
         redo = args.force or (args.only and item["text"] in args.only)
         if path.exists() and not redo:
             continue
+        cfg = cfg_word if is_single_word(item["text"]) else cfg_sentence
         audio, rate = synth(voice, cfg, spoken(item["text"]))
         encode_mp3(trim(audio, rate), rate, path)
         made += 1

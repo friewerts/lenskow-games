@@ -65,14 +65,7 @@
     box-shadow: 0 0 0 8px rgba(139, 108, 246, 0.2);
   }
 }
-.bead-bounce {
-  animation: bead-bounce 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) !important;
-}
-@keyframes bead-bounce {
-  40% {
-    transform: translateY(-18%) scale(1.12);
-  }
-}
+
 
 .pattern-options {
   display: flex;

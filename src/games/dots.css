@@ -98,6 +98,4 @@
     transform: scale(1.15);
   }
 }
-.dot.shake-dot {
-  animation: shake 0.45s ease;
-}
+

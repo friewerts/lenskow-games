@@ -300,7 +300,11 @@ export default function dots(ctx) {
     }
     svg.onpointerup = svg.onpointercancel = () => (pressing = false)
 
-    ctx.setHelp(() => ctx.say(T.dotsStart))
+    ctx.setHelp(() => {
+      if (done) return
+      showHint(true)
+      ctx.say(next === 0 ? T.dotsStart : T.dotsNext)
+    })
     if (index === 0) ctx.say(T.dotsStart)
     if (!alwaysHint) armIdle()
   }

@@ -257,6 +257,7 @@ export default function paint(ctx) {
     await ctx.say(T.paintSaved)
   }
 
+  ctx.idleHelp = false
   ctx.setHelp(() => ctx.say(T.paintHello))
   ctx.say(T.paintHello)
   ctx.preload([T.paintSaved, T.paintClear])

@@ -8,7 +8,7 @@ import { goHome } from '../core/app.js'
 import { burst } from '../core/effects.js'
 import { STICKERS } from '../data/content.js'
 import { T, wordSay } from '../data/texts.js'
-import { stickers, newStickers, markStickersSeen, drawings } from '../core/store.js'
+import { stickers, newStickers, markStickersSeen, drawings, removeDrawing } from '../core/store.js'
 
 export function mount(screen) {
   const owned = new Set(stickers())
@@ -56,21 +56,26 @@ export function mount(screen) {
     }),
   )
 
-  const pictures = drawings()
-  const gallery = pictures.length
-    ? h(
-        'section',
-        { class: 'gallery' },
-        h('h2', { class: 'section-title' }, emoji('framed-picture'), 'Meine Bilder'),
-        h(
-          'div',
-          { class: 'gallery-grid' },
-          ...pictures.map((pic) =>
-            h('button', { class: 'gallery-item', 'aria-label': 'Bild ansehen', onclick: () => openPicture(screen, pic.url) }, h('img', { src: pic.url, alt: 'Gemaltes Bild', draggable: 'false' })),
+  const gallery = h('section', { class: 'gallery' })
+  const renderGallery = () => {
+    const pictures = drawings()
+    gallery.hidden = !pictures.length
+    gallery.replaceChildren(
+      h('h2', { class: 'section-title' }, emoji('framed-picture'), 'Meine Bilder'),
+      h(
+        'div',
+        { class: 'gallery-grid' },
+        ...pictures.map((pic, index) =>
+          h(
+            'button',
+            { class: 'gallery-item', 'aria-label': 'Bild ansehen', onclick: () => openPicture(screen, pic.url, () => (removeDrawing(index), renderGallery())) },
+            h('img', { src: pic.url, alt: 'Gemaltes Bild', draggable: 'false' }),
           ),
         ),
-      )
-    : null
+      ),
+    )
+  }
+  renderGallery()
 
   screen.classList.add('album-screen')
   screen.append(header, h('main', { class: 'album-main' }, grid, gallery))
@@ -83,14 +88,36 @@ export function mount(screen) {
   }
 }
 
-function openPicture(screen, url) {
+function openPicture(screen, url, onDelete) {
   sfx.pop()
   const close = () => (sfx.tap(), overlay.remove())
+  const askDelete = () => {
+    sfx.tap()
+    const confirm = h(
+      'div',
+      { class: 'lightbox-confirm' },
+      h('span', { class: 'confirm-icon', html: ICON.trash }),
+      h('button', {
+        class: 'big-btn btn-red',
+        'aria-label': 'Ja, Bild löschen',
+        html: ICON.check,
+        onclick: () => {
+          sfx.whoosh()
+          overlay.remove()
+          onDelete()
+        },
+      }),
+      h('button', { class: 'big-btn btn-blue', 'aria-label': 'Nein, behalten', html: ICON.close, onclick: () => (sfx.tap(), confirm.remove()) }),
+    )
+    overlay.append(confirm)
+    say(T.paintClear)
+  }
   const overlay = h(
     'div',
     { class: 'overlay lightbox', onclick: (e) => e.target === overlay && close() },
     h('img', { src: url, alt: 'Gemaltes Bild', draggable: 'false' }),
     h('button', { class: 'round-btn close-btn', 'aria-label': 'Schließen', html: ICON.close, onclick: close }),
+    h('button', { class: 'round-btn delete-btn', 'aria-label': 'Bild löschen', html: ICON.trash, onclick: askDelete }),
   )
   screen.append(overlay)
   say(T.myPictures)

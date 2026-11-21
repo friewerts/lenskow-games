@@ -334,9 +334,7 @@ svg {
   z-index: 70;
 }
 
-.wiggle {
-  animation: wiggle 0.6s ease;
-}
+
 @keyframes wiggle {
   0%,
   100% {
@@ -355,9 +353,7 @@ svg {
     transform: rotate(3deg);
   }
 }
-.shake {
-  animation: shake 0.45s ease;
-}
+
 @keyframes shake {
   0%,
   100% {
@@ -376,9 +372,7 @@ svg {
     transform: translateX(4px);
   }
 }
-.bounce {
-  animation: bounce 0.55s cubic-bezier(0.3, 1.6, 0.5, 1);
-}
+
 @keyframes bounce {
   0% {
     transform: scale(1);

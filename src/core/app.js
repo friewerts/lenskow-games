@@ -57,7 +57,12 @@ async function render() {
   previous?.()
   document.querySelectorAll('.overlay').forEach((el) => el.remove())
 
-  const view = await VIEWS[route.name]()
+  let view
+  try {
+    view = await VIEWS[route.name]()
+  } catch {
+    view = { mount: mountError }
+  }
   if (my !== renderToken) return
   const screen = document.createElement('div')
   screen.className = `screen screen-${route.name || 'home'}`
@@ -65,4 +70,21 @@ async function render() {
   window.scrollTo(0, 0)
   const cleanup = view.mount(screen, route.arg)
   current = () => Promise.resolve(cleanup).then((fn) => typeof fn === 'function' && fn())
+}
+
+/** Freundliche Fehlermeldung, falls etwas nicht geladen werden konnte (z. B. offline). */
+export function mountError(screen) {
+  const box = document.createElement('div')
+  box.className = 'error-box'
+  box.innerHTML = '<p class="error-emoji">🦉</p><h2>Ups! Das hat nicht geklappt.</h2><p>Bitte prüfe die Internetverbindung und versuche es noch einmal.</p>'
+  const btn = document.createElement('button')
+  btn.className = 'big-btn btn-blue'
+  btn.setAttribute('aria-label', 'Zur Übersicht')
+  btn.innerHTML = '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 23 24 8l17 15"/><path d="M12 20v19h9V29h6v10h9V20"/></svg>'
+  btn.addEventListener('click', () => {
+    location.hash = '#/'
+    location.reload()
+  })
+  box.append(btn)
+  screen.append(box)
 }

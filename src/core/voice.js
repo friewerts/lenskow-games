@@ -44,20 +44,28 @@ function decode(arrayBuffer) {
   })
 }
 
+// Dekodierte Aufnahmen belegen viel Speicher – nur die zuletzt genutzten behalten.
+const CACHE_LIMIT = 90
+
 function load(text) {
   const key = textKey(text)
   if (!available.has(key)) return Promise.resolve(null)
-  if (!cache.has(key)) {
-    const promise = fetch(`${BASE}voice/${key}.mp3`)
+  let promise = cache.get(key)
+  if (promise) {
+    // als "zuletzt benutzt" markieren
+    cache.delete(key)
+  } else {
+    promise = fetch(`${BASE}voice/${key}.mp3`)
       .then((res) => (res.ok ? res.arrayBuffer() : Promise.reject(new Error(res.statusText))))
       .then(decode)
       .catch(() => {
         cache.delete(key)
         return null
       })
-    cache.set(key, promise)
   }
-  return cache.get(key)
+  cache.set(key, promise)
+  while (cache.size > CACHE_LIMIT) cache.delete(cache.keys().next().value)
+  return promise
 }
 
 /** Aufnahmen schon einmal laden, damit sie ohne Verzögerung starten. */

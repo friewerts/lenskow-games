@@ -80,9 +80,54 @@ export function makePicker(list, memory = Math.min(list.length - 1, Math.ceil(li
   }
 }
 
-/** Animation per CSS-Klasse neu starten. */
+const SHAKE = [
+  { transform: 'translateX(0)' },
+  { transform: 'translateX(-12px)' },
+  { transform: 'translateX(10px)' },
+  { transform: 'translateX(-7px)' },
+  { transform: 'translateX(4px)' },
+  { transform: 'translateX(0)' },
+]
+/** Kurze Bewegungen per Web Animations API – stören keine CSS-Einblend-Animationen. */
+const EFFECTS = {
+  shake: { frames: SHAKE, easing: 'ease' },
+  wrong: { frames: SHAKE, easing: 'ease' },
+  // für SVG-Punkte (Einheiten der Zeichenfläche statt Bildschirmpixel)
+  'shake-dot': {
+    frames: [0, -3, 2.5, -1.8, 1, 0].map((x) => ({ transform: `translateX(${x}px)` })),
+    easing: 'ease',
+  },
+  bounce: {
+    frames: [{ transform: 'scale(1)' }, { transform: 'scale(1.18)', offset: 0.4 }, { transform: 'scale(1)' }],
+    easing: 'cubic-bezier(.3,1.6,.5,1)',
+  },
+  'bead-bounce': {
+    frames: [{ transform: 'none' }, { transform: 'translateY(-18%) scale(1.12)', offset: 0.4 }, { transform: 'none' }],
+    easing: 'cubic-bezier(.3,1.6,.5,1)',
+  },
+  wiggle: {
+    frames: [
+      { transform: 'rotate(0) scale(1)' },
+      { transform: 'rotate(-9deg) scale(1.08)' },
+      { transform: 'rotate(8deg) scale(1.08)' },
+      { transform: 'rotate(-5deg) scale(1.04)' },
+      { transform: 'rotate(3deg)' },
+      { transform: 'rotate(0) scale(1)' },
+    ],
+    easing: 'ease',
+  },
+}
+
+/**
+ * Kurzer Effekt an einem Element. Bewegungen laufen über die Web Animations API,
+ * zusätzlich ist die Klasse `cls` für die Dauer gesetzt (z. B. für Farben).
+ */
 export function flash(el, cls, duration = 600) {
   if (!el) return
+  const effect = EFFECTS[cls]
+  if (effect && el.animate) {
+    el.animate(effect.frames, { duration: Math.min(duration, 650), easing: effect.easing })
+  }
   el.classList.remove(cls)
   void el.offsetWidth
   el.classList.add(cls)

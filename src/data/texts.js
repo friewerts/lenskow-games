@@ -31,7 +31,7 @@ export const T = {
     'Spitze!', 'Wunderbar!', 'Sehr gut!', 'Juhu!', 'Bravo!', 'Perfekt!',
   ],
   tryAgain: [
-    'Hmm, versuch es noch einmal.',
+    'Oh, versuch es noch einmal.',
     'Fast! Probier es noch einmal.',
     'Schau noch einmal genau hin.',
     'Das war es nicht. Versuch es noch mal.',
@@ -53,7 +53,7 @@ export const T = {
   // --- Tiere füttern ---
   feedHungry: 'Ich habe Hunger!',
   feedHowTo: 'Leg das Essen auf den Teller. Wenn du fertig bist, tippe auf den grünen Haken.',
-  feedYummy: ['Mmh, lecker! Danke!', 'Mjam, mjam! Das war lecker!', 'Danke, jetzt bin ich satt!'],
+  feedYummy: ['Lecker! Danke schön!', 'Das war aber lecker!', 'Danke, jetzt bin ich satt!'],
   feedTooFew: 'Das ist noch zu wenig. Ich möchte mehr!',
   feedTooMany: 'Oh, das ist zu viel! Nimm wieder etwas weg.',
   feedEmpty: 'Der Teller ist ja noch leer!',

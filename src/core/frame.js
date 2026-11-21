@@ -2,13 +2,13 @@
  * Spielrahmen: Kopfzeile (Start, Fortschritt, Eule), Spielfläche,
  * gemeinsame Hilfsfunktionen für alle Spiele und die Belohnung am Ende.
  */
-import { h, pick, sleep } from './dom.js'
+import { h, pick, sleep, flash } from './dom.js'
 import { ICON } from './icons.js'
 import { emoji, wordImg } from './img.js'
-import { say, sayAll, stopVoice, onSpeaking, preloadVoice } from './voice.js'
+import { say, sayAll, stopVoice, onSpeaking, preloadVoice, isSpeaking } from './voice.js'
 import { sfx, unlockAudio } from './sfx.js'
 import { burst, confetti } from './effects.js'
-import { go, goHome } from './app.js'
+import { go, goHome, mountError } from './app.js'
 import { T, wordSay } from '../data/texts.js'
 import { gameById } from '../games/index.js'
 import { levelFor, recordResult, awardSticker, introHeard, markIntroHeard } from './store.js'
@@ -45,9 +45,18 @@ export async function mount(screen, gameId) {
 
   let disposed = false
   let session = null
-  const mod = await meta.load()
+  const mod = await meta.load().catch(() => null)
+  if (!mod) {
+    owl.dispose()
+    screen.replaceChildren()
+    mountError(screen)
+    return
+  }
   await whenSplashClosed()
-  if (disposed || !screen.isConnected) return
+  if (disposed || !screen.isConnected) {
+    owl.dispose()
+    return
+  }
 
   let first = true
   const start = () => {
@@ -132,6 +141,8 @@ function createSession({ meta, screen, stage, progress, owl, restart, announce }
     preload: (texts) => preloadVoice(texts),
     sfx,
 
+    /** Bei längerer Pause die Anleitung automatisch wiederholen (Malen schaltet das ab). */
+    idleHelp: true,
     /** Was die Eule sagt, wenn man auf sie tippt. */
     setHelp(fn) {
       help = fn
@@ -157,6 +168,28 @@ function createSession({ meta, screen, stage, progress, owl, restart, announce }
     /** Spiel geschafft: Belohnung zeigen, Stufe anpassen, Sticker vergeben. */
     finish: (result = {}) => guard(celebrate({ meta, screen, restart, result, isAlive: () => alive })),
   }
+
+  // Erinnerung: Wenn eine Weile nichts passiert, liest die Eule die Aufgabe noch einmal vor.
+  let idleCount = 0
+  let idleTimer = 0
+  const resetIdle = () => {
+    clearTimeout(idleTimer)
+    if (idleCount < 2) idleTimer = setTimeout(onIdle, 25000)
+  }
+  const onIdle = () => {
+    if (!alive || !ctx.idleHelp || !help) return
+    if (isSpeaking() || screen.querySelector('.celebrate')) return resetIdle()
+    idleCount++
+    flash(owl.el, 'wiggle', 700)
+    help()
+    resetIdle()
+  }
+  screen.addEventListener('pointerdown', resetIdle, true)
+  disposers.push(() => {
+    clearTimeout(idleTimer)
+    screen.removeEventListener('pointerdown', resetIdle, true)
+  })
+  resetIdle()
 
   return {
     ctx,

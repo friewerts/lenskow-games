@@ -6,8 +6,7 @@ import { unlockAudio } from './core/sfx.js'
 
 // Ton freischalten, sobald das Kind irgendwo hintippt (Browser-Regel).
 const unlock = () => unlockAudio()
-window.addEventListener('pointerdown', unlock, { capture: true })
-window.addEventListener('keydown', unlock, { capture: true })
+for (const type of ['pointerdown', 'touchend', 'click', 'keydown']) window.addEventListener(type, unlock, { capture: true, passive: true })
 
 // Lange Drücken (Kontextmenü) und Pinch-Zoom verhindern – Kinderhände tippen gern lange.
 window.addEventListener('contextmenu', (e) => e.preventDefault())

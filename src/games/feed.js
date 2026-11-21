@@ -52,8 +52,11 @@ export default function feed(ctx) {
   const count = () => plateItems.children.length
   const renumber = () => [...plateItems.children].forEach((el, i) => (el.dataset.n = i + 1))
 
+  // Jedes Futter hat einen festen Platz auf dem Tablett, damit nichts verrutscht.
+  const inTray = (el) => el.parentElement?.classList.contains('tray-slot')
+
   function toPlate(el) {
-    if (busy || el.parentElement !== tray) return
+    if (busy || !inTray(el)) return
     ctx.sfx.pop()
     moveInto(el, plateItems)
     renumber()
@@ -63,7 +66,8 @@ export default function feed(ctx) {
   function toTray(el) {
     if (busy || el.parentElement !== plateItems) return
     ctx.sfx.pick()
-    moveInto(el, tray)
+    const slot = [...tray.children].find((s) => !s.firstChild)
+    if (slot) moveInto(el, slot)
     delete el.dataset.n
     renumber()
     if (count()) ctx.say(numberWord(count()))
@@ -74,9 +78,9 @@ export default function feed(ctx) {
     const el = h('button', { class: 'food', 'aria-label': 'Futter' }, wordImg(foodId))
     tapOrDrag(el, {
       canStart: () => !busy,
-      onTap: () => (el.parentElement === tray ? toPlate(el) : toTray(el)),
+      onTap: () => (inTray(el) ? toPlate(el) : toTray(el)),
       onDrop: (point) => {
-        if (el.parentElement === tray && hitTest(plate, point, 24)) toPlate(el)
+        if (inTray(el) && hitTest(plate, point, 24)) toPlate(el)
         else if (el.parentElement === plateItems && !hitTest(plate, point, 10)) toTray(el)
       },
     })
@@ -98,8 +102,13 @@ export default function feed(ctx) {
 
     plateItems.replaceChildren()
     const supply = clamp(target + randInt(2, 4), 5, 12)
-    tray.replaceChildren(...Array.from({ length: supply }, () => makeFood(animal.food)))
-    ;[...tray.children].forEach((el, i) => (el.style.animationDelay = `${150 + i * 35}ms`))
+    tray.replaceChildren(
+      ...Array.from({ length: supply }, (_, i) => {
+        const food = makeFood(animal.food)
+        food.style.animationDelay = `${150 + i * 35}ms`
+        return h('div', { class: 'tray-slot' }, food)
+      }),
+    )
     ctx.sfx.whoosh()
 
     const request = feedRequest(animal, target)
