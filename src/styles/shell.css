@@ -748,6 +748,9 @@
   opacity: 0.35;
   transform: scale(0.94);
 }
+.choice.tried:not(.hint-pulse) {
+  opacity: 0.5;
+}
 .choice:disabled {
   cursor: default;
 }

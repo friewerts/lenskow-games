@@ -148,6 +148,7 @@ export default function count(ctx) {
         roundMistakes++
         ctx.sfx.wrong()
         flash(btn, 'wrong', 500)
+        btn.classList.add('tried')
         if (roundMistakes >= 2) {
           // Gemeinsam zählen
           await ctx.say(T.countHint)

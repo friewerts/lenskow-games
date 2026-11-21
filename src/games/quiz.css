@@ -135,6 +135,3 @@
     width: min(26cqw, 56cqh, 240px);
   }
 }
-.quiz-choice.tried {
-  opacity: 0.55;
-}

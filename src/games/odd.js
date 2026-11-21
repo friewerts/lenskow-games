@@ -63,6 +63,7 @@ export default function oddOneOut(ctx) {
         roundMistakes++
         ctx.sfx.wrong()
         flash(btn, 'wrong', 500)
+        btn.classList.add('tried')
         await ctx.say(wordSay(id))
         await ctx.say(roundMistakes >= 2 ? T.oddQuestion : pick(T.tryAgain))
         if (roundMistakes >= 2) buttons[r.options.indexOf(r.odd)]?.classList.add('hint-pulse')

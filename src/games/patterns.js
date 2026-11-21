@@ -106,6 +106,7 @@ export default function patterns(ctx) {
         roundMistakes++
         ctx.sfx.wrong()
         flash(btn, 'wrong', 500)
+        btn.classList.add('tried')
         await ctx.tryAgain()
         if (roundMistakes >= 2) {
           // Hilfe: Muster vorspielen und richtige Antwort leuchten lassen
