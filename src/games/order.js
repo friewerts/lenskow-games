@@ -23,7 +23,8 @@ export default function order(ctx) {
 
   const slotsEl = h('div', { class: 'order-slots' })
   const tray = h('div', { class: 'order-tray' })
-  stage.append(h('div', { class: 'order' }, slotsEl, tray))
+  const wrap = h('div', { class: 'order' }, slotsEl, tray)
+  stage.append(wrap)
   ctx.preload([T.orderTime, T.orderSmallBig, T.orderBigSmall, T.orderWrong, ...sequences.map((sq) => sq.say)])
 
   function startRound() {
@@ -44,8 +45,7 @@ export default function order(ctx) {
     }
     const n = cardsData.length
     let busy = false
-    slotsEl.style.setProperty('--n', n)
-    tray.style.setProperty('--n', n)
+    wrap.style.setProperty('--n', n)
 
     const slots = cardsData.map((_, i) => h('div', { class: 'order-slot', dataset: { i }, style: { animationDelay: `${i * 80}ms` } }, h('span', { class: 'slot-number' }, String(i + 1))))
     slotsEl.replaceChildren(...slots.flatMap((slot, i) => (i ? [h('span', { class: 'order-arrow', 'aria-hidden': 'true' }, '›'), slot] : [slot])))
