@@ -19,16 +19,40 @@ import {
   PATTERN_SETS,
   SOUND_LETTERS_ALL,
   SOUND_LETTERS_EASY,
+  RIDDLES,
+  ORDER_SEQUENCES,
+  ORDER_SIZE_ITEMS,
+  SUDOKU_SETS,
+  HOUSE_ANIMALS,
+  HOUSE_COLORS,
+  SCALE_GIFTS,
 } from '../src/data/content.js'
 import { EXTRA_ICONS } from '../src/data/icons.js'
 import { textKey } from '../src/core/textkey.js'
 import { collectLines } from '../scripts/voice-lines.mjs'
-import { wordsByLetter, makeSoundsRound, makeRhymeRound, makeOddRound, makePattern, generateMaze } from '../src/games/logic.js'
+import {
+  wordsByLetter,
+  makeSoundsRound,
+  makeRhymeRound,
+  makeOddRound,
+  makePattern,
+  generateMaze,
+  makeSudoku,
+  countSudokuSolutions,
+  makeHousePuzzle,
+  houseSolutions,
+  makeScaleRound,
+  makeCubeStructure,
+  makeMirrorPuzzle,
+  makeSizeOrder,
+  makeRiddleRound,
+} from '../src/games/logic.js'
 
 const root = new URL('..', import.meta.url).pathname
 const iconExists = (name) => existsSync(`${root}public/e/${name}.svg`)
 
 test('alle Bilder sind vorhanden', () => {
+  for (const seq of ORDER_SEQUENCES) for (const icon of seq.icons) assert.ok(iconExists(icon), `Bild fehlt: ${icon}`)
   for (const [id, word] of Object.entries(WORDS)) {
     assert.ok(iconExists(word.i), `Bild fehlt für ${id}: ${word.i}`)
     if (word.body) assert.ok(iconExists(word.body), `Bild fehlt für ${id}: ${word.body}`)
@@ -47,6 +71,10 @@ test('alle Inhalte verweisen auf bekannte Wörter', () => {
     ...MAZE_PAIRS.flatMap((p) => [p.from, p.to]),
     ...STICKERS,
     ...PATTERN_SETS.flat(),
+    ...RIDDLES.flatMap((r) => [r.id, ...r.near]),
+    ...ORDER_SIZE_ITEMS,
+    ...SUDOKU_SETS.flat(),
+    ...HOUSE_ANIMALS.map((a) => a.id),
   ]
   for (const id of ids) assert.ok(WORDS[id], `Unbekanntes Wort: ${id}`)
 })
@@ -147,4 +175,88 @@ test('jede Ansage hat eine Sprachaufnahme', () => {
   assert.deepEqual(missing, [], `Fehlende Aufnahmen (npm run voice:lines + scripts/generate_voice.py): ${missing.slice(0, 10).join(' | ')}`)
   const keys = new Set(lines.map(textKey))
   assert.equal(keys.size, lines.length, 'Schlüssel-Kollision')
+})
+
+test('Bilder-Sudoku: genau eine Lösung, Lösung ist korrekt', () => {
+  for (const [n, blanks] of [[3, 3], [4, 5], [4, 8]]) {
+    for (let i = 0; i < 60; i++) {
+      const sd = makeSudoku(n, blanks)
+      assert.equal(sd.blanks, blanks, `nicht genug Lücken (${n}×${n})`)
+      assert.equal(countSudokuSolutions(sd.puzzle, n, 2), 1)
+      for (let k = 0; k < n; k++) {
+        assert.equal(new Set(sd.solution[k]).size, n, 'Reihe doppelt')
+        assert.equal(new Set(sd.solution.map((row) => row[k])).size, n, 'Spalte doppelt')
+      }
+      sd.puzzle.forEach((row, r) => row.forEach((v, c) => v != null && assert.equal(v, sd.solution[r][c])))
+    }
+  }
+})
+
+test('Wer wohnt wo?: eindeutig und jeder Hinweis nötig', () => {
+  for (const level of [1, 2, 3]) {
+    for (let i = 0; i < 80; i++) {
+      const p = makeHousePuzzle(level)
+      assert.ok(p.n <= HOUSE_ANIMALS.length && p.n <= HOUSE_COLORS.length)
+      const sols = houseSolutions(p.n, p.clues)
+      assert.equal(sols.length, 1)
+      assert.deepEqual(sols[0], p.solution)
+      for (let k = 0; k < p.clues.length; k++) assert.ok(houseSolutions(p.n, p.clues.filter((_, j) => j !== k)).length > 1, 'überflüssiger Hinweis')
+    }
+  }
+})
+
+test('Waage: Antwort folgt aus den Waagen', () => {
+  for (const level of [1, 2, 3]) {
+    for (let i = 0; i < 100; i++) {
+      const r = makeScaleRound(level, SCALE_GIFTS.length)
+      // Gewichte aus den Waagen ableiten: wer nie leichter ist, ist am schwersten
+      const lighter = new Set(r.scales.map((sc) => (sc.heavy === sc.left ? sc.right : sc.left)))
+      const heavier = new Set(r.scales.map((sc) => sc.heavy))
+      if (r.question === 'lightest') assert.ok(!heavier.has(r.answer) && lighter.has(r.answer))
+      else assert.ok(!lighter.has(r.answer) && heavier.has(r.answer))
+      assert.ok(r.gifts.includes(r.answer))
+      for (const sc of r.scales) assert.ok([sc.left, sc.right].includes(sc.heavy) && sc.left !== sc.right)
+    }
+  }
+})
+
+test('Würfel: nichts schwebt', () => {
+  for (const level of [1, 2, 3]) {
+    for (let i = 0; i < 100; i++) {
+      const st = makeCubeStructure(level)
+      const key = (c) => `${c.x},${c.y},${c.z}`
+      const set = new Set(st.cubes.map(key))
+      assert.equal(set.size, st.cubes.length)
+      assert.equal(st.cubes.length, st.total)
+      for (const c of st.cubes) if (c.z > 0) assert.ok(set.has(key({ ...c, z: c.z - 1 })), 'schwebender Würfel')
+    }
+  }
+})
+
+test('Spiegelbild und Reihenfolge', () => {
+  for (let i = 0; i < 100; i++) {
+    const p = makeMirrorPuzzle(4, 3, 5)
+    assert.equal(p.cells.length, 5)
+    p.cells.forEach((cell, k) => assert.deepEqual(p.answer[k], { r: cell.r, c: 2 - cell.c }))
+    const sz = makeSizeOrder((i % 3) + 1, ORDER_SIZE_ITEMS)
+    const sorted = [...sz.scales].sort((a, b) => (sz.descending ? b - a : a - b))
+    assert.deepEqual(sz.scales, sorted)
+    assert.equal(new Set(sz.scales).size, sz.scales.length)
+  }
+  for (const seq of ORDER_SEQUENCES) assert.ok(seq.icons.length >= 3 && seq.icons.length <= 5)
+})
+
+test('Rätsel: richtige Antwort dabei, Ablenker passen zur Stufe', () => {
+  for (const riddle of RIDDLES) {
+    assert.ok(!riddle.near.includes(riddle.id))
+    for (const level of [1, 2, 3]) {
+      const r = makeRiddleRound(level, riddle)
+      assert.ok(r.options.includes(riddle.id))
+      assert.equal(new Set(r.options).size, r.options.length)
+      assert.equal(r.options.length, level === 1 ? 2 : 3)
+      const others = r.options.filter((id) => id !== riddle.id)
+      if (level === 3) others.forEach((id) => assert.ok(riddle.near.includes(id)))
+      if (level === 1) others.forEach((id) => assert.ok(!riddle.near.includes(id)))
+    }
+  }
 })

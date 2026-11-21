@@ -37,6 +37,7 @@ PRONUNCIATION = {
     "Muffin": "Maffin",
     "T-Shirt": "Tie-Schört",
     "Los geht’s!": "Los gehts!",
+    "Waage": "Die Waage.",
 }
 
 # Wortersetzungen innerhalb längerer Sätze

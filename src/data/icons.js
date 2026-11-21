@@ -29,4 +29,8 @@ export const EXTRA_ICONS = [
   'fork-and-knife-with-plate',
   'wastebasket',
   'check-mark-button',
+  'balance-scale',
+  'butterfly',
+  'calendar',
+  'sparkling-heart',
 ]

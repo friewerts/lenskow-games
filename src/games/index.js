@@ -10,9 +10,10 @@ import { GAME_TEXTS } from '../data/texts.js'
 export const AREAS = {
   zahlen: { name: 'Zahlen & Mengen' },
   sprache: { name: 'Sprache & Laute' },
-  denken: { name: 'Denken & Sehen' },
+  denken: { name: 'Logik & Denken' },
+  raum: { name: 'Raum & Formen' },
   merken: { name: 'Merken & Hören' },
-  kreativ: { name: 'Geschick & Kreativität' },
+  kreativ: { name: 'Malen & Gestalten' },
 }
 
 export const GAMES = [
@@ -38,6 +39,13 @@ export const GAMES = [
     load: () => import('./dots.js'),
   },
   {
+    id: 'scale',
+    area: 'zahlen',
+    art: { main: 'balance-scale' },
+    info: 'Waagen ablesen: Was ist schwerer? Ab Stufe 2 müssen zwei Waagen verknüpft werden („Was ist am schwersten?“) – logisches Schlussfolgern über Vergleiche.',
+    load: () => import('./scale.js'),
+  },
+  {
     id: 'sounds',
     area: 'sprache',
     art: { letter: 'M', side: 'mouse-face' },
@@ -50,6 +58,13 @@ export const GAMES = [
     art: { main: 'mouse-face', side: 'house' },
     info: 'Was reimt sich? Fördert das genaue Hinhören auf Wortendungen (Reime erkennen) und erweitert den Wortschatz.',
     load: () => import('./rhymes.js'),
+  },
+  {
+    id: 'riddles',
+    area: 'sprache',
+    art: { main: 'thinking-face', side: 'red-question-mark' },
+    info: '„Wer bin ich?“-Rätsel zum Zuhören: Mehrere Hinweise müssen zusammen passen. Fördert Sprachverständnis, Wortschatz und Kombinieren.',
+    load: () => import('./riddles.js'),
   },
   {
     id: 'patterns',
@@ -66,11 +81,53 @@ export const GAMES = [
     load: () => import('./odd.js'),
   },
   {
-    id: 'shadows',
+    id: 'order',
     area: 'denken',
+    art: { order: ['egg', 'hatching-chick', 'chicken'] },
+    info: 'Bilder in die richtige Reihenfolge bringen: Abläufe (Ei → Küken → Huhn, Tag und Nacht …) und Größen (von klein nach groß).',
+    load: () => import('./order.js'),
+  },
+  {
+    id: 'sudoku',
+    area: 'denken',
+    art: { sudoku: ['red-apple', 'banana', 'pear'] },
+    info: 'Bilder-Sudoku mit 3×3 oder 4×4 Feldern: In jeder Reihe und Spalte jedes Bild nur einmal. Trainiert regelgeleitetes Denken und Ausschlussverfahren.',
+    load: () => import('./sudoku.js'),
+  },
+  {
+    id: 'houses',
+    area: 'denken',
+    art: { main: 'house', side: 'cat-face' },
+    info: 'Logikrätsel: Bildkarten verraten, wer (nicht) in welchem Haus wohnt. Das Kind kombiniert die Hinweise – auch Verneinungen („wohnt nicht im roten Haus“).',
+    load: () => import('./houses.js'),
+  },
+  {
+    id: 'shadows',
+    area: 'raum',
     art: { main: 'elephant', shadow: true },
     info: 'Bilder auf den passenden Schatten ziehen. Übt visuelle Wahrnehmung (Formen erkennen) und die Hand-Auge-Koordination.',
     load: () => import('./shadows.js'),
+  },
+  {
+    id: 'mirror',
+    area: 'raum',
+    art: { mirror: 'butterfly' },
+    info: 'Ein Muster an der Spiegelachse ergänzen. Schult Symmetrie-Verständnis und räumliche Orientierung (links/rechts).',
+    load: () => import('./mirror.js'),
+  },
+  {
+    id: 'cubes',
+    area: 'raum',
+    art: { cubes: true },
+    info: 'Würfelbauten zählen. Auf Stufe 3 sind manche Würfel verdeckt – was oben liegt, braucht einen Würfel darunter. Räumliches Vorstellungsvermögen.',
+    load: () => import('./cubes.js'),
+  },
+  {
+    id: 'maze',
+    area: 'raum',
+    art: { main: 'mouse-face', side: 'cheese-wedge', maze: true },
+    info: 'Mit dem Finger den Weg durch das Labyrinth finden. Übt vorausschauendes Planen und Feinmotorik.',
+    load: () => import('./maze.js'),
   },
   {
     id: 'memory',
@@ -85,13 +142,6 @@ export const GAMES = [
     art: { main: 'bird', side: 'musical-notes' },
     info: 'Eine Tonfolge anhören und nachspielen, sie wird mit der Zeit länger. Trainiert das Hörgedächtnis und die Aufmerksamkeit.',
     load: () => import('./melody.js'),
-  },
-  {
-    id: 'maze',
-    area: 'kreativ',
-    art: { main: 'mouse-face', side: 'cheese-wedge', maze: true },
-    info: 'Mit dem Finger den Weg durch das Labyrinth finden. Übt vorausschauendes Planen und Feinmotorik.',
-    load: () => import('./maze.js'),
   },
   {
     id: 'paint',

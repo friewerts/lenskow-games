@@ -102,6 +102,47 @@ export const T = {
   paintSaved: 'Das ist aber schön! Ich hebe dein Bild auf.',
   paintClear: 'Soll das Bild weg?',
 
+  // --- Bilder-Sudoku ---
+  sudokuRule: 'In jeder Reihe und in jeder Spalte gibt es jedes Bild nur einmal.',
+  sudokuHowTo: 'Wähle ein Bild und tippe auf ein leeres Feld.',
+  sudokuRow: 'Das gibt es in dieser Reihe schon.',
+  sudokuCol: 'Das gibt es in dieser Spalte schon.',
+  sudokuNotYet: 'Das passt hier noch nicht. Schau dir die anderen Felder an.',
+
+  // --- Wer wohnt wo? ---
+  housesHowTo: 'Wer wohnt in welchem Haus? Hör dir die Hinweise gut an.',
+  housesDrag: 'Zieh jedes Tier in sein Haus.',
+  housesWrong: 'Das passt noch nicht zu diesem Hinweis.',
+  housesRight: 'Richtig! Alle wohnen im richtigen Haus.',
+
+  // --- Waage ---
+  scaleHowTo: 'Die schwere Seite der Waage geht nach unten.',
+  scaleHeavier: 'Welches Geschenk ist schwerer?',
+  scaleHeaviest: 'Welches Geschenk ist am schwersten?',
+  scaleLightest: 'Welches Geschenk ist am leichtesten?',
+
+  // --- Würfel zählen ---
+  cubesQuestion: 'Wie viele Würfel sind es?',
+  cubesHidden: 'Aufgepasst! Manche Würfel sind versteckt. Kein Würfel kann schweben.',
+  cubesHint: 'Unter jedem Würfel oben muss noch ein Würfel sein.',
+
+  // --- Reihenfolge ---
+  orderTime: 'Was passiert zuerst? Leg die Bilder der Reihe nach hin.',
+  orderSmallBig: 'Sortiere von klein nach groß.',
+  orderBigSmall: 'Sortiere von groß nach klein.',
+  orderWrong: 'Fast! Ein paar Bilder sind noch nicht am richtigen Platz.',
+
+  // --- Spiegelbild ---
+  mirrorHowTo: 'Male die andere Seite genau wie im Spiegel.',
+  mirrorWrong: 'Schau genau hin. Welches Feld ist auf der anderen Seite gegenüber?',
+
+  // --- Rätsel ---
+  riddlesHowTo: 'Hör gut zu und rate mit!',
+
+  // --- Tagesprogramm ---
+  dailyIntro: 'Das sind deine Spiele für heute. Tippe auf ein Bild!',
+  dailyDone: 'Juhu! Du hast alle Spiele für heute geschafft. Hier ist ein Extra-Sticker!',
+
   // --- Eltern ---
   parentsGate: 'Dieser Bereich ist für Erwachsene.',
 }
@@ -120,6 +161,25 @@ export const GAME_TEXTS = {
   melody: { name: 'Melodie' },
   maze: { name: 'Labyrinth' },
   paint: { name: 'Malen' },
+  sudoku: { name: 'Bilder-Sudoku' },
+  houses: { name: 'Wer wohnt wo?' },
+  scale: { name: 'Waage' },
+  cubes: { name: 'Würfel zählen' },
+  order: { name: 'Reihenfolge' },
+  mirror: { name: 'Spiegelbild' },
+  riddles: { name: 'Rätsel' },
+}
+
+/** "Der Hund wohnt (nicht) im roten Haus." */
+export function houseClue(animal, color, positive) {
+  return `${animal.der} wohnt ${positive ? '' : 'nicht '}im ${color.adj} Haus.`
+}
+
+/** "Das rote Geschenk ist am schwersten." */
+export function scaleAnswer(gift, kind) {
+  if (kind === 'heavier') return `${gift.name} ist schwerer.`
+  if (kind === 'lightest') return `${gift.name} ist am leichtesten.`
+  return `${gift.name} ist am schwersten.`
 }
 
 /** "Ich möchte drei Karotten." */

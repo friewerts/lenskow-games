@@ -36,7 +36,7 @@
   place-items: center;
 }
 .mem-back {
-  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.35), transparent 55%), repeating-linear-gradient(45deg, var(--merken) 0 14px, #4cc9f0 14px 28px);
+  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.35), transparent 55%), repeating-linear-gradient(45deg, var(--merken) 0 14px, #6fa8ff 14px 28px);
   border: 5px solid #fff;
   box-shadow: 0 6px 0 var(--merken-dark), 0 10px 20px rgba(59, 51, 85, 0.15);
   color: #fff;

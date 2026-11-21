@@ -11,7 +11,7 @@ import { burst, confetti } from './effects.js'
 import { go, goHome, mountError } from './app.js'
 import { T, wordSay } from '../data/texts.js'
 import { gameById } from '../games/index.js'
-import { levelFor, recordResult, awardSticker, introHeard, markIntroHeard } from './store.js'
+import { levelFor, recordResult, awardSticker, introHeard, markIntroHeard, markDailyDone } from './store.js'
 import { whenSplashClosed } from '../screens/splash.js'
 
 export async function mount(screen, gameId) {
@@ -207,6 +207,8 @@ async function celebrate({ meta, screen, restart, result, isAlive }) {
   const { mistakes = 0, rounds = 1 } = result
   const level = recordResult(meta.id, { mistakes, rounds })
   const sticker = awardSticker()
+  const daily = markDailyDone(meta.id)
+  const bonus = daily.completedNow ? awardSticker() : null
 
   const actionBtn = (cls, icon, label, onclick) =>
     h('button', { class: `big-btn ${cls}`, 'aria-label': label, html: icon, onclick })
@@ -221,6 +223,9 @@ async function celebrate({ meta, screen, restart, result, isAlive }) {
       sticker ? wordImg(sticker, { cls: 'celebrate-sticker' }) : emoji('trophy', { cls: 'celebrate-sticker' }),
     ),
     h('h2', { class: 'celebrate-title' }, 'Super gemacht!'),
+    daily.completedNow
+      ? h('p', { class: 'celebrate-daily' }, emoji('trophy'), h('span', {}, 'Tagesziel geschafft!'), bonus ? wordImg(bonus, { cls: 'bonus-sticker' }) : null)
+      : null,
     level.levelUp
       ? h(
           'p',
@@ -264,6 +269,12 @@ async function celebrate({ meta, screen, restart, result, isAlive }) {
     await sleep(150)
     if (!isAlive()) return
     await say(wordSay(sticker))
+  }
+  if (daily.completedNow && isAlive()) {
+    await sleep(300)
+    sfx.fanfare()
+    if (isAlive()) await say(T.dailyDone)
+    if (bonus && isAlive()) await say(wordSay(bonus))
   }
   if (level.levelUp && isAlive()) {
     await sleep(250)

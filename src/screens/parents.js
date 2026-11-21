@@ -212,6 +212,7 @@ function renderSettings(main) {
         h('li', {}, h('strong', {}, 'Als App nutzen: '), 'Im Browser „Zum Home-Bildschirm“ bzw. „App installieren“ wählen. Danach funktionieren alle Spiele auch ohne Internet.'),
         h('li', {}, h('strong', {}, 'Gemeinsam spielen: '), 'Gerade am Anfang hilft es, die ersten Runden zusammen zu spielen und die Aufgaben laut mitzusprechen.'),
         h('li', {}, h('strong', {}, 'Kurze Einheiten: '), 'Eine Runde dauert 2–5 Minuten. 15–20 Minuten am Stück sind für Fünfjährige meist genug.'),
+        h('li', {}, h('strong', {}, 'Tagesprogramm: '), 'Oben auf dem Startbildschirm stehen jeden Tag drei Spiele aus verschiedenen Bereichen. Sind alle geschafft, gibt es einen Extra-Sticker – ein guter Rahmen für eine tägliche Übungszeit.'),
         h('li', {}, h('strong', {}, 'Fehler sind erlaubt: '), 'Es gibt keine Zeitlimits und keine Strafen. Nach zwei Fehlversuchen zeigt das Spiel einen Tipp.'),
         h('li', {}, h('strong', {}, 'Die Eule: '), 'Tippt das Kind auf die Eule oben rechts, wird die Aufgabe noch einmal vorgelesen.'),
       ),

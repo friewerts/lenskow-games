@@ -1,0 +1,106 @@
+.order {
+  --card: min(calc((92cqw - (var(--n, 3) - 1) * 30px) / var(--n, 3)), 28cqh, 170px);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  justify-items: center;
+  gap: 4cqmin;
+}
+.order-slots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.order-slot {
+  position: relative;
+  width: var(--card);
+  height: var(--card);
+  border-radius: 24px;
+  border: 4px dashed rgba(139, 108, 246, 0.4);
+  background: rgba(255, 255, 255, 0.6);
+  display: grid;
+  place-items: center;
+  animation: pop-in 0.4s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+.slot-number {
+  position: absolute;
+  top: -12px;
+  left: -10px;
+  min-width: 34px;
+  height: 34px;
+  border-radius: 17px;
+  background: var(--denken);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 3px 0 var(--denken-dark);
+  z-index: 2;
+}
+.order-arrow {
+  font-size: min(9cqw, 48px);
+  font-weight: 700;
+  color: rgba(139, 108, 246, 0.55);
+  line-height: 1;
+}
+.order-tray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3cqmin;
+  justify-content: center;
+  padding: 14px;
+  min-height: calc(var(--card) + 28px);
+  min-width: min(90cqw, calc(var(--card) * 3));
+  border-radius: var(--r-xl);
+  background: rgba(255, 255, 255, 0.55);
+}
+.order-card {
+  --card-size: var(--card);
+  width: var(--card);
+  height: var(--card);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 6px 0 rgba(59, 51, 85, 0.12);
+  display: grid;
+  place-items: center;
+  touch-action: none;
+  animation: pop-in 0.4s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+.order-card img {
+  width: 80%;
+  height: 80%;
+  transition: transform 0.2s;
+}
+.order-slot .order-card {
+  width: 100%;
+  height: 100%;
+  animation: none;
+}
+.order-card.locked {
+  box-shadow: 0 6px 0 rgba(31, 157, 91, 0.3), 0 0 0 4px var(--green);
+}
+.order-card.dragging {
+  box-shadow: 0 16px 28px rgba(59, 51, 85, 0.25);
+}
+
+@container (max-width: 520px) {
+  .order {
+    --card: min(calc((96cqw - 28px - (var(--n, 3) - 1) * 12px) / var(--n, 3)), 24cqh, 150px);
+  }
+  .order-arrow {
+    display: none;
+  }
+  .order-slots {
+    gap: 8px;
+  }
+  .slot-number {
+    min-width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    top: -10px;
+    left: -6px;
+  }
+}

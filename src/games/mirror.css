@@ -1,0 +1,50 @@
+.mirror {
+  --cell: min(calc((88cqw - 40px) / (var(--cols) * 2)), calc(86cqh / var(--rows)), 96px);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.mirror-board {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding: 14px;
+  border-radius: var(--r-xl);
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+.mirror.solved .mirror-board {
+  animation: bounce 0.6s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.mirror-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  grid-auto-rows: var(--cell);
+  gap: 6px;
+}
+.mirror-line {
+  width: 12px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #e3f2fd, #b3e5fc 30%, #ffffff 50%, #b3e5fc 70%, #e3f2fd);
+  box-shadow: 0 0 0 2px #81d4fa, 0 0 18px rgba(129, 212, 250, 0.8);
+}
+.mirror-cell {
+  border-radius: 14px;
+  background: #f1eefb;
+  box-shadow: inset 0 0 0 2px rgba(59, 51, 85, 0.07);
+  animation: pop-in 0.3s ease both;
+  transition: background 0.15s;
+}
+.mirror-grid.right .mirror-cell {
+  background: #fff;
+  box-shadow: inset 0 0 0 3px rgba(139, 108, 246, 0.25);
+}
+.mirror-cell.on,
+.mirror-grid.right .mirror-cell.on {
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.6), transparent 45%), var(--paint);
+  box-shadow: 0 4px 0 rgba(59, 51, 85, 0.18);
+}
+.mirror-grid.right .mirror-cell.on {
+  animation: pop-in 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}

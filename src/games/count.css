@@ -131,10 +131,3 @@
   flex-direction: column;
   gap: 3cqmin;
 }
-.number-choice {
-  width: min(26cqmin, 26cqw, 140px);
-  height: min(26cqmin, 26cqw, 140px);
-  font-size: min(15cqmin, 84px);
-  font-weight: 700;
-  color: var(--zahlen-dark);
-}

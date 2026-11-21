@@ -241,3 +241,97 @@ export const PATTERN_SETS = [
   ['frosch', 'ente', 'schnecke', 'marienkaefer'],
   ['tulpe', 'sonnenblume', 'rose', 'kaktus'],
 ]
+
+/* ================================================================== */
+/* Denk- und Logikspiele                                               */
+/* ================================================================== */
+
+/* ---------------- Rätsel ---------------- */
+// near: Ablenker mit gemeinsamen Merkmalen (für Stufe 3)
+export const RIDDLES = [
+  { id: 'banane', say: 'Ich bin gelb und krumm. Affen essen mich gern. Was bin ich?', near: ['zitrone', 'mais'] },
+  { id: 'hase', say: 'Ich habe lange Ohren und hoppele über die Wiese. Wer bin ich?', near: ['katze', 'hund'] },
+  { id: 'sonne', say: 'Ich stehe am Himmel und bin heiß und hell. Was bin ich?', near: ['mond', 'stern'] },
+  { id: 'schneeflocke', say: 'Ich bin weiß und kalt und falle im Winter vom Himmel. Was bin ich?', near: ['tropfen', 'schneemann'] },
+  { id: 'auto', say: 'Ich habe vier Räder und ein Lenkrad und fahre auf der Straße. Was bin ich?', near: ['fahrrad', 'roller'] },
+  { id: 'kuh', say: 'Ich gebe Milch und rufe Muh. Wer bin ich?', near: ['ziege', 'schaf'] },
+  { id: 'oktopus', say: 'Ich wohne im Meer und habe acht Arme. Wer bin ich?', near: ['fisch', 'krabbe'] },
+  { id: 'karotte', say: 'Ich bin orange und wachse in der Erde. Hasen essen mich gern. Was bin ich?', near: ['orange', 'kartoffel'] },
+  { id: 'giraffe', say: 'Ich habe einen sehr langen Hals und braune Flecken. Wer bin ich?', near: ['zebra', 'elefant'] },
+  { id: 'schnecke', say: 'Ich trage mein Haus auf dem Rücken und bin ganz langsam. Wer bin ich?', near: ['raupe', 'wurm'] },
+  { id: 'uhr', say: 'Ich habe Zeiger und zeige dir, wie spät es ist. Was bin ich?', near: ['telefon', 'radio'] },
+  { id: 'eis', say: 'Ich bin kalt und süß und schmelze in der Sonne. Was bin ich?', near: ['schneemann', 'lolli'] },
+  { id: 'frosch', say: 'Ich bin grün, springe hoch und rufe Quak. Wer bin ich?', near: ['krokodil', 'raupe'] },
+  { id: 'zahnbuerste', say: 'Mit mir putzt du dir morgens und abends die Zähne. Was bin ich?', near: ['seife', 'pinsel'] },
+  { id: 'biene', say: 'Ich summe, habe gelbe und schwarze Streifen und mache Honig. Wer bin ich?', near: ['fliege', 'marienkaefer'] },
+  { id: 'marienkaefer', say: 'Ich bin rot mit schwarzen Punkten und krabbele über die Blätter. Wer bin ich?', near: ['erdbeere', 'biene'] },
+  { id: 'elefant', say: 'Ich bin sehr groß und grau und habe einen langen Rüssel. Wer bin ich?', near: ['nashorn', 'nilpferd'] },
+  { id: 'loewe', say: 'Ich habe eine große Mähne und brülle ganz laut. Wer bin ich?', near: ['tiger', 'pferd'] },
+  { id: 'regenschirm', say: 'Wenn es regnet, hältst du mich über deinen Kopf. Was bin ich?', near: ['hut', 'wolke'] },
+  { id: 'buch', say: 'Ich habe viele Seiten mit Bildern und Geschichten. Was bin ich?', near: ['brief', 'fernseher'] },
+  { id: 'rakete', say: 'Ich fliege ganz schnell bis zum Mond. Was bin ich?', near: ['flugzeug', 'hubschrauber'] },
+  { id: 'regenbogen', say: 'Ich bin bunt und stehe am Himmel, wenn Sonne und Regen zusammenkommen. Was bin ich?', near: ['sonne', 'wolke'] },
+  { id: 'igel', say: 'Ich habe viele Stacheln und rolle mich zu einer Kugel zusammen. Wer bin ich?', near: ['kaktus', 'ball'] },
+  { id: 'ei', say: 'Das Huhn legt mich. Ich bin weiß und oval. Was bin ich?', near: ['kueken', 'milch'] },
+  { id: 'fisch', say: 'Ich habe Flossen und Schuppen und schwimme im Wasser. Wer bin ich?', near: ['ente', 'frosch'] },
+  { id: 'feuerwehr', say: 'Ich bin rot, habe eine lange Leiter und lösche Feuer. Was bin ich?', near: ['polizeiauto', 'krankenwagen'] },
+  { id: 'bett', say: 'In mir schläfst du jede Nacht. Was bin ich?', near: ['sofa', 'stuhl'] },
+  { id: 'zitrone', say: 'Ich bin gelb und ganz sauer. Was bin ich?', near: ['banane', 'kaese'] },
+  { id: 'pinguin', say: 'Ich bin ein Vogel, kann aber nicht fliegen. Ich schwimme im eiskalten Meer. Wer bin ich?', near: ['ente', 'eule'] },
+  { id: 'kerze', say: 'Ich habe eine kleine Flamme und werde immer kürzer. Was bin ich?', near: ['feuer', 'gluehbirne'] },
+  { id: 'schluessel', say: 'Mit mir kannst du die Tür aufschließen. Was bin ich?', near: ['tuer', 'hammer'] },
+  { id: 'mond', say: 'Ich leuchte nachts am Himmel. Manchmal bin ich rund und manchmal krumm. Was bin ich?', near: ['stern', 'sonne'] },
+  { id: 'hund', say: 'Ich belle, wedele mit dem Schwanz und hole gern Stöckchen. Wer bin ich?', near: ['katze', 'fuchs'] },
+  { id: 'katze', say: 'Ich miaue, schnurre und fange gern Mäuse. Wer bin ich?', near: ['hund', 'tiger'] },
+  { id: 'trommel', say: 'Wenn du auf mich schlägst, mache ich bumm, bumm. Was bin ich?', near: ['gitarre', 'glocke'] },
+  { id: 'schneemann', say: 'Ich bin aus Schnee gebaut und habe eine Karotte als Nase. Wer bin ich?', near: ['schneeflocke', 'eis'] },
+]
+
+/* ---------------- Reihenfolge ---------------- */
+// Zeitliche Abläufe: Bilder in der richtigen Reihenfolge (icons = Noto-Emoji)
+export const ORDER_SEQUENCES = [
+  { icons: ['egg', 'hatching-chick', 'chicken'], say: 'Erst das Ei, dann das Küken und zum Schluss das Huhn.', level: 1 },
+  { icons: ['seedling', 'tulip', 'wilted-flower'], say: 'Erst wächst ein kleiner Keim, dann blüht die Blume, und zum Schluss verwelkt sie.', level: 1 },
+  { icons: ['cherry-blossom', 'green-apple', 'red-apple'], say: 'Erst kommt die Blüte, dann wächst ein grüner Apfel, und zum Schluss wird er rot.', level: 1 },
+  { icons: ['snowflake', 'snowman', 'droplet'], say: 'Erst fällt Schnee, dann bauen wir einen Schneemann, und zum Schluss schmilzt er.', level: 1 },
+  { icons: ['cloud', 'cloud-with-rain', 'rainbow'], say: 'Erst kommen Wolken, dann regnet es, und zum Schluss scheint ein Regenbogen.', level: 1 },
+  { icons: ['sheaf-of-rice', 'bread', 'sandwich'], say: 'Erst wächst das Korn. Daraus backt man Brot. Und zum Schluss macht man ein belegtes Brot.', level: 2 },
+  { icons: ['bricks', 'building-construction', 'house'], say: 'Erst die Steine, dann die Baustelle, und zum Schluss steht das Haus.', level: 2 },
+  { icons: ['sunrise', 'sun', 'sunset', 'night-with-stars'], say: 'Morgen, Mittag, Abend und Nacht.', level: 2 },
+  { icons: ['baby', 'child', 'person', 'older-person'], say: 'Erst ein Baby, dann ein Kind, dann ein Erwachsener, und zum Schluss ist man alt.', level: 2 },
+  { icons: ['nest-with-eggs', 'hatching-chick', 'baby-chick', 'bird'], say: 'Erst die Eier im Nest, dann schlüpft das Küken, es wächst, und zum Schluss fliegt der Vogel.', level: 3 },
+  { icons: ['new-moon', 'waxing-crescent-moon', 'first-quarter-moon', 'waxing-gibbous-moon', 'full-moon'], say: 'Der Mond wird jeden Tag ein bisschen größer, bis er ganz rund ist.', level: 3 },
+]
+
+// Größenordnung: diese Bilder werden in verschiedenen Größen gezeigt
+export const ORDER_SIZE_ITEMS = ['teddy', 'baum', 'haus', 'stern', 'fisch', 'apfel', 'ball', 'blume', 'tanne', 'pilz', 'herz', 'kaktus']
+
+/* ---------------- Wer wohnt wo? ---------------- */
+export const HOUSE_ANIMALS = [
+  { id: 'hund', der: 'Der Hund' },
+  { id: 'katze', der: 'Die Katze' },
+  { id: 'hase', der: 'Der Hase' },
+  { id: 'maus', der: 'Die Maus' },
+]
+export const HOUSE_COLORS = [
+  { id: 'rot', adj: 'roten', fill: '#ff5a5f', dark: '#d63c42' },
+  { id: 'gelb', adj: 'gelben', fill: '#ffc93c', dark: '#e0a400' },
+  { id: 'blau', adj: 'blauen', fill: '#3a9bff', dark: '#1f78d1' },
+  { id: 'gruen', adj: 'grünen', fill: '#47c46b', dark: '#2a9a4c' },
+]
+
+/* ---------------- Waage ---------------- */
+export const SCALE_GIFTS = [
+  { id: 'rot', name: 'Das rote Geschenk', fill: '#ff5a5f', dark: '#d63c42', ribbon: '#ffe08a' },
+  { id: 'blau', name: 'Das blaue Geschenk', fill: '#3a9bff', dark: '#1f78d1', ribbon: '#ffe08a' },
+  { id: 'gruen', name: 'Das grüne Geschenk', fill: '#47c46b', dark: '#2a9a4c', ribbon: '#fff3b0' },
+  { id: 'gelb', name: 'Das gelbe Geschenk', fill: '#ffc93c', dark: '#e0a400', ribbon: '#ff7aa8' },
+]
+
+/* ---------------- Bilder-Sudoku ---------------- */
+export const SUDOKU_SETS = [
+  ['apfel', 'banane', 'birne', 'traube'],
+  ['frosch', 'schwein', 'kueken', 'vogel'],
+  ['sonne', 'mond', 'stern', 'wolke'],
+  ['auto', 'bus', 'zug', 'flugzeug'],
+]

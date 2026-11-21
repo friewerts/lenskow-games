@@ -2,7 +2,7 @@
  * Speicherstand im Browser (localStorage): Einstellungen, Stufen, Sticker, Bilder.
  */
 import { STICKERS } from '../data/content.js'
-import { pick } from './dom.js'
+import { pick, shuffle } from './dom.js'
 
 const KEY = 'lenskow-lernspiele-v2'
 
@@ -16,6 +16,7 @@ const DEFAULTS = {
   newStickers: [], // noch nicht im Stickerheft angesehen
   drawings: [], // gespeicherte Bilder (Data-URLs, neueste zuerst)
   intro: {}, // Anleitung schon einmal gehört?
+  daily: null, // Tagesprogramm { date, games, done, rewarded }
 }
 
 let state = load()
@@ -162,6 +163,42 @@ export function addDrawing(dataUrl) {
 export function removeDrawing(index) {
   state.drawings.splice(index, 1)
   save()
+}
+
+/* ---------- Tagesprogramm ---------- */
+function todayKey() {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+/** Drei Spiele für heute – aus drei verschiedenen Bereichen, bevorzugt selten gespielte. */
+export function dailyPlan(games) {
+  const today = todayKey()
+  const valid = state.daily && state.daily.date === today && state.daily.games.every((id) => games.some((g) => g.id === id))
+  if (!valid) {
+    const byArea = {}
+    for (const g of games) if (g.area !== 'kreativ') (byArea[g.area] ||= []).push(g)
+    const areas = shuffle(Object.keys(byArea)).slice(0, 3)
+    const picks = areas.map((area) => {
+      const list = shuffle(byArea[area])
+      list.sort((a, b) => (state.plays[a.id] || 0) - (state.plays[b.id] || 0))
+      return list[0].id
+    })
+    state.daily = { date: today, games: picks, done: [], rewarded: false }
+    save()
+  }
+  return structuredClone(state.daily)
+}
+
+/** Spiel im Tagesprogramm abhaken. completedNow = gerade das ganze Programm geschafft. */
+export function markDailyDone(gameId) {
+  const d = state.daily
+  if (!d || d.date !== todayKey() || !d.games.includes(gameId)) return { completedNow: false }
+  if (!d.done.includes(gameId)) d.done.push(gameId)
+  const completedNow = d.games.every((id) => d.done.includes(id)) && !d.rewarded
+  if (completedNow) d.rewarded = true
+  save()
+  return { completedNow }
 }
 
 /* ---------- Zurücksetzen ---------- */

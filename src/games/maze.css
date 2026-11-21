@@ -22,7 +22,7 @@
 }
 .maze-trail {
   fill: none;
-  stroke: var(--kreativ);
+  stroke: var(--raum);
   stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -43,7 +43,7 @@
 }
 .hero-ring {
   fill: #fff;
-  stroke: var(--kreativ);
+  stroke: var(--raum);
   stroke-width: 0.8;
 }
 .maze-hero {

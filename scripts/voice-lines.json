@@ -236,6 +236,106 @@
   "text": "Soll das Bild weg?"
  },
  {
+  "key": "0khod671l8rqwx",
+  "text": "In jeder Reihe und in jeder Spalte gibt es jedes Bild nur einmal."
+ },
+ {
+  "key": "0xkcq3y0ogqm2i",
+  "text": "Wähle ein Bild und tippe auf ein leeres Feld."
+ },
+ {
+  "key": "0ivs18m07ipg78",
+  "text": "Das gibt es in dieser Reihe schon."
+ },
+ {
+  "key": "1ox13xk0z1j5b4",
+  "text": "Das gibt es in dieser Spalte schon."
+ },
+ {
+  "key": "05ndlat161h19p",
+  "text": "Das passt hier noch nicht. Schau dir die anderen Felder an."
+ },
+ {
+  "key": "1dmyv2x1wwb6ih",
+  "text": "Wer wohnt in welchem Haus? Hör dir die Hinweise gut an."
+ },
+ {
+  "key": "02taobz18gs4ex",
+  "text": "Zieh jedes Tier in sein Haus."
+ },
+ {
+  "key": "065ye3z0hogg7l",
+  "text": "Das passt noch nicht zu diesem Hinweis."
+ },
+ {
+  "key": "16e59sz0jooalr",
+  "text": "Richtig! Alle wohnen im richtigen Haus."
+ },
+ {
+  "key": "19dcwek1gi2y7w",
+  "text": "Die schwere Seite der Waage geht nach unten."
+ },
+ {
+  "key": "1h891fu0x2mi5m",
+  "text": "Welches Geschenk ist schwerer?"
+ },
+ {
+  "key": "0dh9ms502l2ajf",
+  "text": "Welches Geschenk ist am schwersten?"
+ },
+ {
+  "key": "1tik5cj04el0od",
+  "text": "Welches Geschenk ist am leichtesten?"
+ },
+ {
+  "key": "1iupnxq0z47qzk",
+  "text": "Wie viele Würfel sind es?"
+ },
+ {
+  "key": "1awuykc089h880",
+  "text": "Aufgepasst! Manche Würfel sind versteckt. Kein Würfel kann schweben."
+ },
+ {
+  "key": "1t8dnop0yr6a8t",
+  "text": "Unter jedem Würfel oben muss noch ein Würfel sein."
+ },
+ {
+  "key": "02f4l7q0e1bxiq",
+  "text": "Was passiert zuerst? Leg die Bilder der Reihe nach hin."
+ },
+ {
+  "key": "0lamx0x0lkdomf",
+  "text": "Sortiere von klein nach groß."
+ },
+ {
+  "key": "0yxkfir1stc2yv",
+  "text": "Sortiere von groß nach klein."
+ },
+ {
+  "key": "1hxet3o1xace52",
+  "text": "Fast! Ein paar Bilder sind noch nicht am richtigen Platz."
+ },
+ {
+  "key": "0eugovh1og3hz5",
+  "text": "Male die andere Seite genau wie im Spiegel."
+ },
+ {
+  "key": "05b5imw03qict0",
+  "text": "Schau genau hin. Welches Feld ist auf der anderen Seite gegenüber?"
+ },
+ {
+  "key": "04p2wz60ldnhma",
+  "text": "Hör gut zu und rate mit!"
+ },
+ {
+  "key": "0lfbqx910s8dd1",
+  "text": "Das sind deine Spiele für heute. Tippe auf ein Bild!"
+ },
+ {
+  "key": "05spxcu178f166",
+  "text": "Juhu! Du hast alle Spiele für heute geschafft. Hier ist ein Extra-Sticker!"
+ },
+ {
   "key": "0ldvtwg0xgycei",
   "text": "Dieser Bereich ist für Erwachsene."
  },
@@ -286,6 +386,34 @@
  {
   "key": "1fx0rzu03sdvgy",
   "text": "Malen"
+ },
+ {
+  "key": "1y0ol8r0ktk60v",
+  "text": "Bilder-Sudoku"
+ },
+ {
+  "key": "0pfskiy0zgpw08",
+  "text": "Wer wohnt wo?"
+ },
+ {
+  "key": "1pummmk03zfswa",
+  "text": "Waage"
+ },
+ {
+  "key": "05nv8o800o46hy",
+  "text": "Würfel zählen"
+ },
+ {
+  "key": "0pk5r3n0rp860d",
+  "text": "Reihenfolge"
+ },
+ {
+  "key": "0wv8dkx1nfyert",
+  "text": "Spiegelbild"
+ },
+ {
+  "key": "1f311q31nss4ib",
+  "text": "Rätsel"
  },
  {
   "key": "0yz016s0ykgp3o",
@@ -2320,6 +2448,370 @@
   "text": "Ein Hase!"
  },
  {
+  "key": "1gkt3v11fs28hp",
+  "text": "Ich bin gelb und krumm. Affen essen mich gern. Was bin ich?"
+ },
+ {
+  "key": "1kvtui81yhi0uk",
+  "text": "Ich habe lange Ohren und hoppele über die Wiese. Wer bin ich?"
+ },
+ {
+  "key": "1dyk71a1fo1t1e",
+  "text": "Ich stehe am Himmel und bin heiß und hell. Was bin ich?"
+ },
+ {
+  "key": "03xj3qs1aus1g6",
+  "text": "Ich bin weiß und kalt und falle im Winter vom Himmel. Was bin ich?"
+ },
+ {
+  "key": "13kfc2x0bkgpvf",
+  "text": "Ich habe vier Räder und ein Lenkrad und fahre auf der Straße. Was bin ich?"
+ },
+ {
+  "key": "19agx3s0fyohic",
+  "text": "Ich gebe Milch und rufe Muh. Wer bin ich?"
+ },
+ {
+  "key": "0lfdtx313edyd9",
+  "text": "Ich wohne im Meer und habe acht Arme. Wer bin ich?"
+ },
+ {
+  "key": "0xf57sz1asf25r",
+  "text": "Ich bin orange und wachse in der Erde. Hasen essen mich gern. Was bin ich?"
+ },
+ {
+  "key": "1e2f61116ano17",
+  "text": "Ich habe einen sehr langen Hals und braune Flecken. Wer bin ich?"
+ },
+ {
+  "key": "043eqgw0lvrq1u",
+  "text": "Ich trage mein Haus auf dem Rücken und bin ganz langsam. Wer bin ich?"
+ },
+ {
+  "key": "0bzq1te0ogs0n6",
+  "text": "Ich habe Zeiger und zeige dir, wie spät es ist. Was bin ich?"
+ },
+ {
+  "key": "08oqooj077egmn",
+  "text": "Ich bin kalt und süß und schmelze in der Sonne. Was bin ich?"
+ },
+ {
+  "key": "149w49i0uwybv2",
+  "text": "Ich bin grün, springe hoch und rufe Quak. Wer bin ich?"
+ },
+ {
+  "key": "19jxerh164ptxx",
+  "text": "Mit mir putzt du dir morgens und abends die Zähne. Was bin ich?"
+ },
+ {
+  "key": "0mtbh0705cuovf",
+  "text": "Ich summe, habe gelbe und schwarze Streifen und mache Honig. Wer bin ich?"
+ },
+ {
+  "key": "0m7lcdq11v21xm",
+  "text": "Ich bin rot mit schwarzen Punkten und krabbele über die Blätter. Wer bin ich?"
+ },
+ {
+  "key": "1b9574f1pdn5k9",
+  "text": "Ich bin sehr groß und grau und habe einen langen Rüssel. Wer bin ich?"
+ },
+ {
+  "key": "0mhnhem0vqbjt0",
+  "text": "Ich habe eine große Mähne und brülle ganz laut. Wer bin ich?"
+ },
+ {
+  "key": "0e99mxu1hog5kg",
+  "text": "Wenn es regnet, hältst du mich über deinen Kopf. Was bin ich?"
+ },
+ {
+  "key": "1pkw4yb0wgeqg1",
+  "text": "Ich habe viele Seiten mit Bildern und Geschichten. Was bin ich?"
+ },
+ {
+  "key": "1hgjti3177ecx7",
+  "text": "Ich fliege ganz schnell bis zum Mond. Was bin ich?"
+ },
+ {
+  "key": "0y6vl8i0hluqkw",
+  "text": "Ich bin bunt und stehe am Himmel, wenn Sonne und Regen zusammenkommen. Was bin ich?"
+ },
+ {
+  "key": "1e9tjim0wv3h60",
+  "text": "Ich habe viele Stacheln und rolle mich zu einer Kugel zusammen. Wer bin ich?"
+ },
+ {
+  "key": "1lay8yg1jh69zu",
+  "text": "Das Huhn legt mich. Ich bin weiß und oval. Was bin ich?"
+ },
+ {
+  "key": "168pds312uhhfr",
+  "text": "Ich habe Flossen und Schuppen und schwimme im Wasser. Wer bin ich?"
+ },
+ {
+  "key": "0xqx6680w9lit4",
+  "text": "Ich bin rot, habe eine lange Leiter und lösche Feuer. Was bin ich?"
+ },
+ {
+  "key": "160uhwv09jjrs3",
+  "text": "In mir schläfst du jede Nacht. Was bin ich?"
+ },
+ {
+  "key": "0iaozww09q7n1k",
+  "text": "Ich bin gelb und ganz sauer. Was bin ich?"
+ },
+ {
+  "key": "1vm1h8901khaen",
+  "text": "Ich bin ein Vogel, kann aber nicht fliegen. Ich schwimme im eiskalten Meer. Wer bin ich?"
+ },
+ {
+  "key": "0n83oh91gfaupn",
+  "text": "Ich habe eine kleine Flamme und werde immer kürzer. Was bin ich?"
+ },
+ {
+  "key": "0sxrc0k1gnc0ji",
+  "text": "Mit mir kannst du die Tür aufschließen. Was bin ich?"
+ },
+ {
+  "key": "0mq6ru612tto70",
+  "text": "Ich leuchte nachts am Himmel. Manchmal bin ich rund und manchmal krumm. Was bin ich?"
+ },
+ {
+  "key": "01a640h1ed9ai1",
+  "text": "Ich belle, wedele mit dem Schwanz und hole gern Stöckchen. Wer bin ich?"
+ },
+ {
+  "key": "1jvnsj41nlg6ze",
+  "text": "Ich miaue, schnurre und fange gern Mäuse. Wer bin ich?"
+ },
+ {
+  "key": "162mqfc1ivooyo",
+  "text": "Wenn du auf mich schlägst, mache ich bumm, bumm. Was bin ich?"
+ },
+ {
+  "key": "1nwyqai150ujm2",
+  "text": "Ich bin aus Schnee gebaut und habe eine Karotte als Nase. Wer bin ich?"
+ },
+ {
+  "key": "1gq8ovy1tuts44",
+  "text": "Erst das Ei, dann das Küken und zum Schluss das Huhn."
+ },
+ {
+  "key": "0ocffxh1k3zbhp",
+  "text": "Erst wächst ein kleiner Keim, dann blüht die Blume, und zum Schluss verwelkt sie."
+ },
+ {
+  "key": "1cev9hk0beu0os",
+  "text": "Erst kommt die Blüte, dann wächst ein grüner Apfel, und zum Schluss wird er rot."
+ },
+ {
+  "key": "0tu4qc90f857ov",
+  "text": "Erst fällt Schnee, dann bauen wir einen Schneemann, und zum Schluss schmilzt er."
+ },
+ {
+  "key": "02dbsyi1l5bjf0",
+  "text": "Erst kommen Wolken, dann regnet es, und zum Schluss scheint ein Regenbogen."
+ },
+ {
+  "key": "185iuax147sqj7",
+  "text": "Erst wächst das Korn. Daraus backt man Brot. Und zum Schluss macht man ein belegtes Brot."
+ },
+ {
+  "key": "1ashws41xx80q8",
+  "text": "Erst die Steine, dann die Baustelle, und zum Schluss steht das Haus."
+ },
+ {
+  "key": "04vzh040z8tnjc",
+  "text": "Morgen, Mittag, Abend und Nacht."
+ },
+ {
+  "key": "1sg3o9x0scxt5n",
+  "text": "Erst ein Baby, dann ein Kind, dann ein Erwachsener, und zum Schluss ist man alt."
+ },
+ {
+  "key": "1k1a2lo12dow8a",
+  "text": "Erst die Eier im Nest, dann schlüpft das Küken, es wächst, und zum Schluss fliegt der Vogel."
+ },
+ {
+  "key": "0ib7uzw1yku266",
+  "text": "Der Mond wird jeden Tag ein bisschen größer, bis er ganz rund ist."
+ },
+ {
+  "key": "139pd7w131fgpo",
+  "text": "Der Hund wohnt im roten Haus."
+ },
+ {
+  "key": "018lf9e0xhjepe",
+  "text": "Der Hund wohnt nicht im roten Haus."
+ },
+ {
+  "key": "1ijhzbh07sp4ch",
+  "text": "Der Hund wohnt im gelben Haus."
+ },
+ {
+  "key": "0k4dj4f11nng0n",
+  "text": "Der Hund wohnt nicht im gelben Haus."
+ },
+ {
+  "key": "08guv9j0jbv557",
+  "text": "Der Hund wohnt im blauen Haus."
+ },
+ {
+  "key": "0lr13lh1d6tgtd",
+  "text": "Der Hund wohnt nicht im blauen Haus."
+ },
+ {
+  "key": "1ucx3i817q3416",
+  "text": "Der Hund wohnt im grünen Haus."
+ },
+ {
+  "key": "1kekdy602jxdq8",
+  "text": "Der Hund wohnt nicht im grünen Haus."
+ },
+ {
+  "key": "1gdwspj0q8bjlv",
+  "text": "Die Katze wohnt im roten Haus."
+ },
+ {
+  "key": "0rm2ynd0tsbrix",
+  "text": "Die Katze wohnt nicht im roten Haus."
+ },
+ {
+  "key": "1ly0bfc0bas3pk",
+  "text": "Die Katze wohnt im gelben Haus."
+ },
+ {
+  "key": "0psbl5a1llvb1a",
+  "text": "Die Katze wohnt nicht im gelben Haus."
+ },
+ {
+  "key": "1ozkdcu0mty4ia",
+  "text": "Die Katze wohnt im blauen Haus."
+ },
+ {
+  "key": "0uvox081x51bu0",
+  "text": "Die Katze wohnt nicht im blauen Haus."
+ },
+ {
+  "key": "1dgoyhh1b863e9",
+  "text": "Die Katze wohnt im grünen Haus."
+ },
+ {
+  "key": "1b8dzlb0mi58qv",
+  "text": "Die Katze wohnt nicht im grünen Haus."
+ },
+ {
+  "key": "0ooqwwa1grohm6",
+  "text": "Der Hase wohnt im roten Haus."
+ },
+ {
+  "key": "0n3zz7k0bm5wn8",
+  "text": "Der Hase wohnt nicht im roten Haus."
+ },
+ {
+  "key": "0z8vq3r0yoamab",
+  "text": "Der Hase wohnt im gelben Haus."
+ },
+ {
+  "key": "00espo10q7efs9",
+  "text": "Der Hase wohnt nicht im gelben Haus."
+ },
+ {
+  "key": "1bipanh1a7gn31",
+  "text": "Der Hase wohnt im blauen Haus."
+ },
+ {
+  "key": "0khezar11qkgkz",
+  "text": "Der Hase wohnt nicht im blauen Haus."
+ },
+ {
+  "key": "0soud8m1ylolz0",
+  "text": "Der Hase wohnt im grünen Haus."
+ },
+ {
+  "key": "1co9s381q4sfgy",
+  "text": "Der Hase wohnt nicht im grünen Haus."
+ },
+ {
+  "key": "1tdkebg1yf0a7u",
+  "text": "Die Maus wohnt im roten Haus."
+ },
+ {
+  "key": "09o359u1xqyfbk",
+  "text": "Die Maus wohnt nicht im roten Haus."
+ },
+ {
+  "key": "063cjb11ct7ecf",
+  "text": "Die Maus wohnt im gelben Haus."
+ },
+ {
+  "key": "0j4b7fj0qri2r9",
+  "text": "Die Maus wohnt nicht im gelben Haus."
+ },
+ {
+  "key": "1dkz7iv1ocdf55",
+  "text": "Die Maus wohnt im blauen Haus."
+ },
+ {
+  "key": "102tpgl12ao3jz",
+  "text": "Die Maus wohnt nicht im blauen Haus."
+ },
+ {
+  "key": "1hjw9rk0dphc20",
+  "text": "Die Maus wohnt im grünen Haus."
+ },
+ {
+  "key": "1ogxrla1qow2fy",
+  "text": "Die Maus wohnt nicht im grünen Haus."
+ },
+ {
+  "key": "0onpaz216np8ow",
+  "text": "Das rote Geschenk ist schwerer."
+ },
+ {
+  "key": "14b2ltj1hsjok1",
+  "text": "Das rote Geschenk ist am schwersten."
+ },
+ {
+  "key": "1rg4knr1ojxm83",
+  "text": "Das rote Geschenk ist am leichtesten."
+ },
+ {
+  "key": "021se9d14ms1pr",
+  "text": "Das blaue Geschenk ist schwerer."
+ },
+ {
+  "key": "13ei2ae0wzak0w",
+  "text": "Das blaue Geschenk ist am schwersten."
+ },
+ {
+  "key": "1j9n8ks0d0kygi",
+  "text": "Das blaue Geschenk ist am leichtesten."
+ },
+ {
+  "key": "192vbre0tbj6dq",
+  "text": "Das grüne Geschenk ist schwerer."
+ },
+ {
+  "key": "1sp5gjn1w0o8tb",
+  "text": "Das grüne Geschenk ist am schwersten."
+ },
+ {
+  "key": "1n4s2h70wsbswh",
+  "text": "Das grüne Geschenk ist am leichtesten."
+ },
+ {
+  "key": "0rh3qfr1nw7kth",
+  "text": "Das gelbe Geschenk ist schwerer."
+ },
+ {
+  "key": "1rigplg0ud4due",
+  "text": "Das gelbe Geschenk ist am schwersten."
+ },
+ {
+  "key": "1knynua1wr5eg8",
+  "text": "Das gelbe Geschenk ist am leichtesten."
+ },
+ {
   "key": "0rtssy303jz5wt",
   "text": "Adler"
  },
@@ -3410,5 +3902,9 @@
  {
   "key": "1i3dodh14n36at",
   "text": "Schneemann"
+ },
+ {
+  "key": "1sin9xn01ujxsf",
+  "text": "Schneeflocke"
  }
 ]

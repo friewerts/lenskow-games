@@ -7,6 +7,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { WORDS } from '../src/data/words.js'
 import { EXTRA_ICONS } from '../src/data/icons.js'
+import { ORDER_SEQUENCES } from '../src/data/content.js'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const outDir = join(root, 'public', 'e')
@@ -19,7 +20,7 @@ function resolve(name) {
   return null
 }
 
-const names = new Set(EXTRA_ICONS)
+const names = new Set([...EXTRA_ICONS, ...ORDER_SEQUENCES.flatMap((s) => s.icons)])
 for (const word of Object.values(WORDS)) {
   names.add(word.i)
   if (word.body) names.add(word.body)

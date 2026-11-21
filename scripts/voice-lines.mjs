@@ -6,8 +6,8 @@
 import { writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { T, GAME_TEXTS, NUMBER_WORDS, numberExclaim, feedRequest, countQuestion, soundsQuestion, rhymeQuestion, wordSay, DOT_SHAPE_SAY } from '../src/data/texts.js'
-import { FEED_ANIMALS, COUNT_THINGS, ODD_CATEGORIES, MAZE_PAIRS, RHYME_GROUPS, STICKERS, MEMORY_THEMES, SHADOW_POOL } from '../src/data/content.js'
+import { T, GAME_TEXTS, NUMBER_WORDS, numberExclaim, feedRequest, countQuestion, soundsQuestion, rhymeQuestion, wordSay, DOT_SHAPE_SAY, houseClue, scaleAnswer } from '../src/data/texts.js'
+import { FEED_ANIMALS, COUNT_THINGS, ODD_CATEGORIES, MAZE_PAIRS, RHYME_GROUPS, STICKERS, MEMORY_THEMES, SHADOW_POOL, RIDDLES, ORDER_SEQUENCES, HOUSE_ANIMALS, HOUSE_COLORS, SCALE_GIFTS } from '../src/data/content.js'
 import { WORDS } from '../src/data/words.js'
 import { textKey, normalizeText } from '../src/core/textkey.js'
 
@@ -44,6 +44,15 @@ export function collectLines() {
   STICKERS.forEach((id) => words.add(id))
   MEMORY_THEMES.flat().forEach((id) => words.add(id))
   SHADOW_POOL.forEach((id) => words.add(id))
+
+  for (const riddle of RIDDLES) {
+    add(riddle.say)
+    words.add(riddle.id)
+    riddle.near.forEach((id) => words.add(id))
+  }
+  ORDER_SEQUENCES.forEach((seq) => add(seq.say))
+  for (const animal of HOUSE_ANIMALS) for (const color of HOUSE_COLORS) for (const pos of [true, false]) add(houseClue(animal, color, pos))
+  for (const gift of SCALE_GIFTS) for (const kind of ['heavier', 'heaviest', 'lightest']) add(scaleAnswer(gift, kind))
 
   for (const id of words) {
     if (!WORDS[id]) throw new Error(`Unbekanntes Wort in den Spielinhalten: ${id}`)
